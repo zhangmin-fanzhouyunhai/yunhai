@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>案例1-div-首页.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<style>
+/* .bodyFrame {
+	text-align: center;
+} */
+.bodyFrame {
+	width: 1200px;
+}
+
+.cle {
+	clear: both;
+}
+/*logo 部分的div*/
+a {
+	text-decoration: none
+}
+
+.header {
+	width: 100%;
+}
+
+.header div {
+	float: left;
+	width: 33.33%;
+	height: 60px;
+	line-height: 50px;
+}
+
+.header a {
+	padding: 15px
+}
+
+/*菜单部分*/
+.menu {
+	width: 100%;
+	background-color: #000;
+	height: 50px;
+	text-align: center;
+}
+
+.menu ul {
+	padding-top: 5px;
+}
+
+.menu ul li {
+	list-style-type: none;
+	display: inline;
+}
+
+.menu a {
+	font-size: 25px;
+	color: #fff;
+}
+
+/*轮播图*/
+/*此处的width控制div的宽度*/
+.carousel {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/*此处的width控制图片的宽度*/
+.carousel img {
+	width: 100%;
+}
+/*热门商品标题放一行控制*/
+.hotTitle h2 {
+	display: inline;
+	margin-bottom: 10px;
+}
+
+.hot {
+	/*margin-top: 10px;*/
+	
+}
+/* 
+.hotLeft {
+	float: left;
+	width:220px;
+}
+
+.hotRight {
+	float: left;
+	width:1200px;
+	text-align:center;
+} */
+.hotLeft {
+	float: left;
+	width: 16%;
+	height: 500px;
+}
+
+.hotRight {
+	float: left;
+	width: 84%;
+	text-align: center;
+	height: 500px;
+}
+/* .hotLeft,hotRight{
+float: left;
+} */
+.middle {
+	float: left;
+	width: 50%;
+	height: 249px;
+}
+
+.item {
+	float: left;
+	width: 16.66%;
+	height: 249px;
+}
+
+.advertise {
+	width: 100%;
+	height: 100px;
+}
+
+.advertise img {
+	width: 100%; 
+}
+/*版本部分*/
+.footer {
+	width: 100%; 
+}
+.footer p{
+ text-align: center;
+}
+</style>
+</head>
+
+<body>
+	<!-- 一个大div中放置8个div -->
+	<div class="bodyFrame">
+		<!-- logo
+		嵌套三个div
+	 -->
+		<div class="header">
+			<div>
+				<img src="../images/logo2.png" height="40px">
+			</div>
+			<div>
+				<img src="../images/header.jpg" height="40px">
+			</div>
+			<div>
+				<a href="#">登录</a> <a href="#">注册</a> <a href="#">购物车</a>
+			</div>
+		</div>
+		<div class="cle"></div>
+		<!-- 菜单 -->
+		<div class="menu">
+			<ul>
+				<li><a href="#">首页</a></li>
+				<li><a href="#">首页</a></li>
+				<li><a href="#">首页</a></li>
+				<li><a href="#">首页</a></li>
+			</ul>
+
+		</div>
+		<!-- 轮播图 -->
+		<div class="carousel">
+			<img src="../images/1.jpg">
+		</div>
+		<!-- 热门 
+		将其划分为两个DIV
+			左边的为图
+			右边的为商品
+		-->
+		<!-- hotTile中存放热门商品标题和一张图片
+		-->
+		<div class="hotTitle">
+			<h2>热门商品</h2>
+			<img src="../images/title2.jpg">
+		</div>
+		<div class="hot">
+			<div>
+				<!-- 存放左边图片 -->
+				<div class="hotLeft">
+					<img src="../images/big01.jpg">
+				</div>
+				<!-- 存放商品图片 -->
+				<div class="hotRight">
+					<div class="middle">
+						<img src="../images/middle01.jpg">
+					</div>
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+					<div class="item">
+						<img src="../images/small08.jpg">
+						<p align="center">
+							<a href="#">电饭煲</a>
+						</p>
+						<p align="center">200</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cle"></div>
+		<!-- 广告 -->
+		<div class="advertise">
+			<img src="../images/ad.jpg">
+		</div>
+		<!-- 最新 -->
+		<div></div>
+		<!-- 广告 -->
+		<div class="advertise">
+			<img src="../images/footer.jpg">
+		</div>
+		<div class="footer">
+			<p>
+				<a href="#">关于我们</a> <a href="#">关于我们</a> <a href="#">关于我们</a> <a
+					href="#">关于我们</a> <a href="#">关于我们</a>
+			</p>
+			<p>Copyright &copy; 2005-2020 敏科技 版权所有</p>
+		</div>
+
+	</div>
+
+</body>
+</html>

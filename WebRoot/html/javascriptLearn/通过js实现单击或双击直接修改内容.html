@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>通过js实现单击或双击直接修改内容.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript">
+
+function edit(element){
+
+　var oldhtml = element.innerHTML;//获得元素之前的内容
+　var newobj = document.createElement('input');//创建一个input元素
+　newobj.type = 'text';//为newobj元素添加类型
+  newobj.value=oldhtml;
+　element.innerHTML = '';　　 //设置元素内容为空
+　element.appendChild(newobj);//添加子元素
+　newobj.focus();//获得焦点
+  //设置newobj失去焦点的事件
+　newobj.onblur = function(){
+   //下面应该判断是否做了修改并使用ajax代码请求服务端将id与修改后的数据提交
+   alert(element.id);
+      //当触发时判断newobj的值是否为空，为空则不修改，并返回oldhtml
+      element.innerHTML = this.value ? this.value : oldhtml;
+   }
+}
+</script>
+
+  </head>
+  
+  <body>
+
+姓名:<span id="1" ondblclick="edit(this)">张三</span><br/>
+ 家庭住址:<span id="2" ondblclick="edit(this)">张三</span><br/>
+
+  </body>
+</html>

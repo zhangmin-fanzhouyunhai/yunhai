@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>验证码（c_code）</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head> 
+  
+  <body> 
+    <a href="index.html">返回</a><br> 
+    <img alt="验证码" src="/Day29/codeServlet" title="看不清楚，换一张" onclick="changeImg(this)">
+  </body>
+  <script type="text/javascript">
+	function changeImg(obj){
+		//操作src属性
+		obj.src="/Day29/codeServlet?i="+Math.random();
+		//alert(1);
+		
+	}
+  </script>
+  </html>

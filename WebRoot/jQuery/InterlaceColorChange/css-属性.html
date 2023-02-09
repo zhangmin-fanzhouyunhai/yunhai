@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <title>案例3-隔行换色.html</title>
+ <!--   引入jQuery --> 
+ <script src="../../js/jquery-1.11.0.min.js"></script>
+ <script src="../../js/assist.js"></script>
+ <link rel="stylesheet" type="text/css" href="../../css/Style.css" /> 
+ 
+ <script type="text/javascript">  
+ //案例2-隔行换色
+ //技术分析：
+ //1.页面加载成功
+ //2.获取所有的奇数行 添加一个css
+ //3.获取所有的偶数行 添加一个css
+ //属性和css操作总结：
+ //对属性的操作：
+ //attr():设置或者获取元素的属性
+ //方式1：获取
+ //   attr("属性名称")
+ //方式2：设置一个属性
+ //   attr(“属性名称”，“值”)
+ //方式3： 设置多个属性  json
+ //   attr({
+ //      "属性1":"值1",
+ //      "属性2":"值2",
+ //      "属性3":"值3"
+ //})
+ // removeAttr("属性名称"):移除指定属性
+ //添加class属性的时候
+ //attr("class","值");
+ //addClass("指定的样式值"); //为对atrr()的装置，相当于attr("class","值")
+ //removeClass("指定样式的值") //为对removeAttr()的装置，相当于removeAttr("属性名称")
+ //对css操作：操作元素的style属性
+ //方式1：获取
+ //   css("属性名称")
+ //方式2：设置一个属性
+ //   css(“属性名称”，“值”)
+ //方式3： 设置多个属性  json
+ //   css({
+ //      "属性1":"值1",
+ //      "属性2":"值2",
+ //      "属性3":"值3"
+ //})
+ //获取元素的尺寸
+ //width()
+ //height()
+ 
+ 	$(function(){  
+ 		 
+ 		 //1.1给username添加title属性
+ 		 var $username=$("[name='username']")
+ 		 $username.attr("title","姓名");
+ 		 //1.2获取username添加title属性
+ 		 //alert($username.attr("title"))
+ 		 //1.3给username添加value和class属性 
+ 		 $username.attr({
+ 		 "value":"许三多",
+ 		 "class":"textClass"
+ 		 });
+ 		 //1.4删除username添加class属性
+ 		//  		$username.removeAttr("class")
+ 		 //2.1给username添加一个名为textClass的样式
+ 		 $username.addClass("textClass")
+ 		 //2.1给username添加一个名为textClass的样式
+ 		 //
+ 		  		 $username.removeClass("textClass")
+ 		 		 //4.1给div添加边框样式
+ 		 var $div1=$("div");
+ 		 $div1.css("border","1px solid red")
+ 		 //4.2获取div的边框样式
+ 		 //alert($div1.css("border"));
+ 		 //4.3给div添加多种样式
+ 		 $div1.css(
+ 		 {
+ 		 "width":"100px",
+ 		 "height":"100px",
+ 		 "background-color":"#ff0"
+ 		 }
+ 		 );
+ 		 //5获取div的位置
+ 		 //alert($div1.offset().left);
+ 		 //6获取div的高和宽
+ 		 alert($div1.width());
+ 		 alert($div1.height());
+ 	})
+ </script>
+ <style type="text/css">
+ .textClass{
+ 	background-color: #ff0;
+ }
+ </style>
+</head>
+<body>  
+<A href="../00-jQueryMenu.html" target=main>返回</A>
+ <h3>表单</h3> 
+<form action="">
+<table id="tab1" border="1" width="800" align="center">
+	
+	<tr id="tr1">
+	<td>姓名</td>
+	<td><input type="text" id="" name="username"/></td> 
+	</tr> 
+	<tr>
+	<td>密码</td>
+	<td><input type="text" id="" name="password"/></td> 
+	</tr>
+	<tr>
+	<td>性别</td>
+	<td><input type="radio" id=""name="gender" value="男" / >
+	<input type="radio" id=""name="gender" value="女"/ >
+	</td> 
+	</tr>
+	<tr> 
+	<td colspan="2"><input type="button" id="">普通按钮</input>
+	<input type="button" id="" value="提交按钮"/>
+	<input type="button" id="" value="重置按钮"/></td> 
+	</tr>
+</table> 
+</form>
+<h3>公告信息</h3>
+<div>未满18慎进</div>
+<span id="sp">外span<a href='#'>内超链接</a></span>
+</body>
+</html>

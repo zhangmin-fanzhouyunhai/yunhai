@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>03-页面加载.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+
+<script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#e01").blur(function() {
+			$("#textMsg").html("文本框失去焦点：blur");
+		}).focus(function() {
+			$("#textMsg").html("文本框获得焦点：focus");
+		}).keydown(function() {
+			$("#textMsg").append("键盘按下：keydown");
+		}).keypress(function(event) {
+			$("#textMsg").append("键盘按下：keypress");
+		}).keyup(function() {
+			$("#textMsg").append("键盘弹起：keyup");
+		});
+
+		var i = 0;
+		$("#e02").mouseover(function() {
+			$("#divMsg").html("鼠标移上：mouseover");
+		}).mousemove(function(event) {
+			var event = event || window.event;
+			var mousePos = mouseCoords(event);
+			$("#divMsg").html("(x,y)=(" + mousePos.x +
+				"," + mousePos.y + ")");
+		}).mouseout(function() {
+			$("#divMsg").html("鼠标移出：mouseout");
+		}).mousedown(function() {
+			$("#divMsg").html("鼠标按下：mousedown");
+		}).mouseup(function() {
+			$("#divMsg").html("鼠标弹起：mouseup");
+		});
+
+		$("#e03").click(function() {
+			$("#buttonMsg").html("单击：click");
+		}).dblclick(function() {
+			$("#buttonMsg").html("双击：dbclick");
+		});
+	});
+
+	function mouseCoords(ev) {
+		if (ev.pageX || ev.pageY) {
+			return {
+				x : ev.pageX,
+				y : ev.pageY
+			};
+		}
+	}
+</script>
+</head>
+
+<body>
+	原生的ajax
+	<br>
+	<hr>
+	<a href="${pageContext.request.contextPath}/js_ajax/hello.jsp">入门</a>
+	<br>
+	</a>
+</body>
+</html>

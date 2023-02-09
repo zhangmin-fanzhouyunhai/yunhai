@@ -1,0 +1,482 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>case5-leftSelectToRightSelect.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript">
+	onload = function() {
+		//给按钮派发事件
+		/*document.getElementById("toRight1").onclick = function() {
+			//获取左边所有的option
+			var arr = document.getElementById("left").options;
+			//alert(arr);
+			//alert(arr.length);
+			//遍历数组，判断是否选中
+			for (var i = 0; i < arr.length; i++) {
+				//判断是否选中，若选中则追加到右边的select中
+				if (arr[i].selected) {
+					document.getElementById("right").appendChild(arr[i]);
+					//document.getElementById("right").cloneNode(arr[i]);
+					break;
+				}
+			}
+
+		}
+		*/
+		//给按钮派发事件
+		/*
+		document.getElementById("toRight2").onclick = function() {
+			//获取左边所有的option
+			var arr = document.getElementById("left").options;
+			//alert(arr);
+			//alert(arr.length);
+			//遍历数组，判断是否选中
+			for (var i = 0; i < arr.length; i++) {
+				//判断是否选中，若选中则追加到右边的select中
+				if (arr[i].selected) {
+					document.getElementById("right").appendChild(arr[i]);
+					//由于appendChild是从左边的选项列表中剪切一个添加到右边，
+					//所以arr.length的长度实际上是变小了的，因此通过i-1来控制。
+					//其中逻辑可以仔细思考一下
+					i--;
+				}
+			}
+
+		}
+		*/ 
+		
+		//给按钮派发事件,将左边select中从上到下第一个被选中的选项追加到右边的select中
+		document.getElementById("toRight1").onclick = function() {
+			//获取右边所有的option
+			var rightOption = document.getElementById("right").options;
+			//获取左边所有的option
+			var leftOption = document.getElementById("left").options;
+
+			var leftRestArray = new Array();
+			var rightOptionArray = new Array();
+			var flag = 0;
+			//遍历数组，判断是否选中
+			for (var i = 0; i < leftOption.length; i++) {
+				//判断是否选中，将右边select中从上到下第一个被选中的选项追加到右边的select中，flag调整为1
+				if (leftOption[i].selected && flag == 0) {
+					//document.getElementById("left").appendChild(arr[i]); 
+					//break;
+					rightOption[rightOption.length] = leftOption[i];
+					i--;
+					flag = 1;
+				} else {
+					/*左边剩余的选项存入rightRestArray数组中，后面根据id取值进行排序*/
+					var optionObj = new optionObject();
+					optionObj._value = leftOption[i].value;
+					optionObj._text = leftOption[i].text;
+					optionObj._id = Number(leftOption[i].id);
+					optionObj._selected = leftOption[i].selected;
+					leftRestArray.push(optionObj);
+				}
+			}
+			/*将拼接好的右边的select转存至数组rightOptionArray中，后面根据id取值进行排序*/
+			var rightOptionArray = new Array();
+			for (var i = 0; i < rightOption.length; i++) {
+				var optionObj = new optionObject();
+				optionObj._value = rightOption[i].value;
+				optionObj._text = rightOption[i].text;
+				optionObj._id = Number(rightOption[i].id);
+				optionObj._selected = rightOption[i].selected;
+				rightOptionArray.push(optionObj);
+			} 
+			/*对rightOptionArray中的select选项按id取值进行asc递增排序，随后将选项填充进右边的选项中去*/
+			rightOptionArray = sortArrayByOptionId(rightOptionArray, "asc");
+			for (var i = 0; i < rightOptionArray.length; i++) {
+				rightOption[i].id = rightOptionArray[i]._id + "";
+				rightOption[i].value = rightOptionArray[i]._value;
+				rightOption[i].text = rightOptionArray[i]._text;
+				rightOption[i].selected = rightOptionArray[i]._selected;
+
+			}
+			/*对leftRestArray中的select选项按id取值进行asc递增排序*/
+			leftRestArray = sortArrayByOptionId(leftRestArray, "asc");
+			/*设定左边select中选项的数量，随后将排好序的选项填充进去*/
+			leftOption.length = leftRestArray.length;
+			for (var i = 0; i < leftRestArray.length; i++) {
+				leftOption[i].id = leftRestArray[i]._id + "";
+				leftOption[i].value = leftRestArray[i]._value;
+				leftOption[i].text = leftRestArray[i]._text;
+				leftOption[i].selected = leftRestArray[i]._selected;
+
+			}
+
+		}
+		document.getElementById("toRight2").onclick = function() {
+			//获取右边所有的option
+			var rightOption = document.getElementById("right").options;
+			//获取左边所有的option
+			var leftOption = document.getElementById("left").options;
+
+			var leftRestArray = new Array();
+			//遍历数组，判断是否选中
+			for (var i = 0; i < leftOption.length; i++) {
+				//判断是否选中，若选中则追加到左边的select中列表rightOption中
+				if (leftOption[i].selected) {
+					//document.getElementById("left").appendChild(arr[i]);
+					//由于appendChild是从左边的选项列表中剪切一个添加到右边，
+					//所以arr.length的长度实际上是变小了的，因此通过i-1来控制。
+					//其中逻辑可以仔细思考一下 
+					rightOption[rightOption.length] = leftOption[i];
+					i--;
+				} else {
+					/*右边剩余的选项存入leftRestArray数组中，后面根据id取值进行排序*/
+					var optionObj = new optionObject();
+					optionObj._value = leftOption[i].value;
+					optionObj._text = leftOption[i].text;
+					optionObj._id = Number(leftOption[i].id);
+					optionObj._selected = leftOption[i].selected;
+					leftRestArray.push(optionObj);
+				}
+			}
+			/*将拼接好的右边的select转存至数组rightOptionArray中，后面根据id取值进行排序*/
+			var rightOptionArray = new Array();
+			for (var i = 0; i < rightOption.length; i++) {
+				var optionObj = new optionObject();
+				optionObj._value = rightOption[i].value;
+				optionObj._text = rightOption[i].text;
+				optionObj._id = Number(rightOption[i].id);
+				optionObj._selected = rightOption[i].selected;
+				rightOptionArray.push(optionObj);
+			} 
+			/*对rightOptionArray中的select选项按id取值进行asc递增排序，随后将选项填充进右边的选项中去*/
+			rightOptionArray = sortArrayByOptionId(rightOptionArray, "asc");
+			for (var i = 0; i < rightOptionArray.length; i++) {
+				rightOption[i].id = rightOptionArray[i]._id + "";
+				rightOption[i].value = rightOptionArray[i]._value;
+				rightOption[i].text = rightOptionArray[i]._text;
+				rightOption[i].selected = rightOptionArray[i]._selected;
+
+			}
+			/*对leftRestArray中的select选项按id取值进行asc递增排序*/
+			leftRestArray = sortArrayByOptionId(leftRestArray, "asc");
+			/*设定左边select中选项的数量，随后将排好序的选项填充进去*/
+			leftOption.length = leftRestArray.length;
+			for (var i = 0; i < leftRestArray.length; i++) {
+				leftOption[i].id = leftRestArray[i]._id + "";
+				leftOption[i].value = leftRestArray[i]._value;
+				leftOption[i].text = leftRestArray[i]._text;
+				leftOption[i].selected = leftRestArray[i]._selected;
+
+			}
+
+		}
+		//将左边的所有选项添加到右边的选择框中
+		/*	document.getElementById("toRight3").onclick = function() {
+				//获取左边所有的option
+				var arr = document.getElementById("left").options;
+				//遍历数组，判断是否选中
+				for (var i = 0; i < arr.length;) {
+					//相当于永远将第一个移动到右边去
+					document.getElementById("right").appendChild(arr[i]);
+				//由于appendChild是从左边的选项列表中剪切一个添加到右边，
+				//所以arr.length的长度实际上是变小了的，因此通过i-1来控制。
+				//其中逻辑可以仔细思考一下 
+				}
+
+			}
+			*/
+
+
+
+
+		//将左边的所有选项添加到右边的选择框中
+		document.getElementById("toRight3").onclick = function() {
+			//获取右边所有的option
+			var rightOption = document.getElementById("right").options;
+			//获取左边所有的option
+			var leftOption = document.getElementById("left").options;
+			//左边的options清空，将所有数据进行重新排列后放入左边的options 
+			//将左边的所有option合并到右边的option中  
+			for (var i = 0; i < leftOption.length;) {
+				rightOption[rightOption.length] = leftOption[i];
+			}
+			/*将拼接到右边rightOption中的选项的属性值转存到数组rightOptionArray中，方便按id进行排序*/
+			var rightOptionArray = new Array();
+			for (var i = 0; i < rightOption.length; i++) {
+				var optionObj = new optionObject();
+				optionObj._value = rightOption[i].value;
+				optionObj._text = rightOption[i].text;
+				optionObj._id = Number(rightOption[i].id);
+				optionObj._selected = rightOption[i].selected;
+				rightOptionArray.push(optionObj);
+			} 
+			sortArray = sortArrayByOptionId(rightOptionArray, "asc");
+
+			/*将按id进行排序的数组rightOptionArray中的值存回rightOption中*/
+			for (var i = 0; i < rightOptionArray.length; i++) {
+				rightOption[i].id = rightOptionArray[i]._id + "";
+				rightOption[i].value = rightOptionArray[i]._value;
+				rightOption[i].text = rightOptionArray[i]._text;
+				rightOption[i].selected = rightOptionArray[i]._selected;
+			}
+		}
+
+		//给按钮派发事件,将右边select中从上到下第一个被选中的选项追加到左边的select中
+		document.getElementById("toLeft1").onclick = function() {
+			//获取右边所有的option
+			var rightOption = document.getElementById("right").options;
+			//获取左边所有的option
+			var leftOption = document.getElementById("left").options;
+
+			var rightRestArray = new Array();
+			var leftOptionArray = new Array();
+			var flag = 0;
+			//遍历数组，判断是否选中
+			for (var i = 0; i < rightOption.length; i++) {
+				//判断是否选中，将右边select中从上到下第一个被选中的选项追加到左边的select中，flag调整为1
+				if (rightOption[i].selected && flag == 0) {
+					//document.getElementById("left").appendChild(arr[i]); 
+					//break;
+					leftOption[leftOption.length] = rightOption[i];
+					i--;
+					flag = 1;
+				} else {
+					/*右边剩余的选项存入rightRestArray数组中，后面根据id取值进行排序*/
+					var optionObj = new optionObject();
+					optionObj._value = rightOption[i].value;
+					optionObj._text = rightOption[i].text;
+					optionObj._id = Number(rightOption[i].id);
+					optionObj._selected = rightOption[i].selected;
+					rightRestArray.push(optionObj);
+				}
+			}
+			/*将拼接好的左边的select转存至数组leftOptionArray中，后面根据id取值进行排序*/
+			var leftOptionArray = new Array();
+			for (var i = 0; i < leftOption.length; i++) {
+				var optionObj = new optionObject();
+				optionObj._value = leftOption[i].value;
+				optionObj._text = leftOption[i].text;
+				optionObj._id = Number(leftOption[i].id);
+				optionObj._selected = leftOption[i].selected;
+				leftOptionArray.push(optionObj);
+			}
+			//var sortMethod = "asc"; 
+			/*对leftOptionArray中的select选项按id取值进行asc递增排序，随后将选项填充进左边的选项中去*/
+			leftOptionArray = sortArrayByOptionId(leftOptionArray, "asc");
+			for (var i = 0; i < leftOptionArray.length; i++) {
+				leftOption[i].id = leftOptionArray[i]._id + "";
+				leftOption[i].value = leftOptionArray[i]._value;
+				leftOption[i].text = leftOptionArray[i]._text;
+				leftOption[i].selected = leftOptionArray[i]._selected;
+
+			}
+			/*对rightRestArray中的select选项按id取值进行asc递增排序*/
+			rightRestArray = sortArrayByOptionId(rightRestArray, "asc");
+			/*设定右边select中选项的数量，随后将排好序的选项填充进去*/
+			rightOption.length = rightRestArray.length;
+			for (var i = 0; i < rightRestArray.length; i++) {
+				rightOption[i].id = rightRestArray[i]._id + "";
+				rightOption[i].value = rightRestArray[i]._value;
+				rightOption[i].text = rightRestArray[i]._text;
+				rightOption[i].selected = rightRestArray[i]._selected;
+
+			}
+
+		}
+
+
+		//将右边选中的选项添加到左边的选择框中
+		document.getElementById("toLeft2").onclick = function() {
+			//获取右边所有的option
+			var rightOptionArr = document.getElementById("right").options;
+			//获取左边所有的option
+			var leftOptionArr = document.getElementById("left").options;
+
+			var rightRestArray = new Array();
+			//遍历数组，判断是否选中
+			for (var i = 0; i < rightOptionArr.length; i++) {
+				//判断是否选中，若选中则追加到左边的select中列表rightOptionArr中
+				if (rightOptionArr[i].selected) {
+					//document.getElementById("left").appendChild(arr[i]);
+					//由于appendChild是从左边的选项列表中剪切一个添加到右边，
+					//所以arr.length的长度实际上是变小了的，因此通过i-1来控制。
+					//其中逻辑可以仔细思考一下 
+					leftOptionArr[leftOptionArr.length] = rightOptionArr[i];
+					i--;
+				} else {
+					/*右边剩余的选项存入rightRestArray数组中，后面根据id取值进行排序*/
+					var optionObj = new optionObject();
+					optionObj._value = rightOptionArr[i].value;
+					optionObj._text = rightOptionArr[i].text;
+					optionObj._id = Number(rightOptionArr[i].id);
+					optionObj._selected = rightOptionArr[i].selected;
+					rightRestArray.push(optionObj);
+				}
+			}
+			/*将拼接好的左边的select转存至数组leftOptionArray中，后面根据id取值进行排序*/
+			var leftOptionArray = new Array();
+			for (var i = 0; i < leftOptionArr.length; i++) {
+				var optionObj = new optionObject();
+				optionObj._value = leftOptionArr[i].value;
+				optionObj._text = leftOptionArr[i].text;
+				optionObj._id = Number(leftOptionArr[i].id);
+				optionObj._selected = leftOptionArr[i].selected;
+				leftOptionArray.push(optionObj);
+			}
+			//var sortMethod = "asc"; 
+			/*对leftOptionArray中的select选项按id取值进行asc递增排序，随后将选项填充进左边的选项中去*/
+			leftOptionArray = sortArrayByOptionId(leftOptionArray, "asc");
+			for (var i = 0; i < leftOptionArray.length; i++) {
+				leftOptionArr[i].id = leftOptionArray[i]._id + "";
+				leftOptionArr[i].value = leftOptionArray[i]._value;
+				leftOptionArr[i].text = leftOptionArray[i]._text;
+				leftOptionArr[i].selected = leftOptionArray[i]._selected;
+
+			}
+			/*对rightRestArray中的select选项按id取值进行asc递增排序*/
+			rightRestArray = sortArrayByOptionId(rightRestArray, "asc");
+			/*设定右边select中选项的数量，随后将排好序的选项填充进去*/
+			rightOptionArr.length = rightRestArray.length;
+			for (var i = 0; i < rightRestArray.length; i++) {
+				rightOptionArr[i].id = rightRestArray[i]._id + "";
+				rightOptionArr[i].value = rightRestArray[i]._value;
+				rightOptionArr[i].text = rightRestArray[i]._text;
+				rightOptionArr[i].selected = rightRestArray[i]._selected;
+
+			}
+
+		}
+		//给按钮派发事件
+		document.getElementById("toLeft3").onclick = function() {
+			//获取右边所有的option
+			var rightOptionArr = document.getElementById("right").options;
+			//获取左边所有的option
+			var leftOptionArr = document.getElementById("left").options;
+			//左边的options清空，将所有数据进行重新排列后放入左边的options 
+			//将右边的所有option合并到左边的option中
+			//alert("length=" +leftOptionArr.length+",rightOptionArr.length="+rightOptionArr.length)
+
+			//leftOptionArr = leftOptionArr.concat(rightOptionArr);
+			for (var i = 0; i < rightOptionArr.length;) {
+				leftOptionArr[leftOptionArr.length] = rightOptionArr[i];
+			}
+			var sortArray = new Array();
+			for (var i = 0; i < leftOptionArr.length; i++) {
+				var optionObj = new optionObject();
+				optionObj._value = leftOptionArr[i].value;
+				optionObj._text = leftOptionArr[i].text;
+				optionObj._id = Number(leftOptionArr[i].id);
+				optionObj._selected = leftOptionArr[i].selected;
+				sortArray.push(optionObj);
+			}
+			sortArray = sortArrayByOptionId(sortArray, "asc");
+
+			for (var i = 0; i < sortArray.length; i++) {
+				leftOptionArr[i].id = sortArray[i]._id + "";
+				leftOptionArr[i].value = sortArray[i]._value;
+				leftOptionArr[i].text = sortArray[i]._text;
+				leftOptionArr[i].selected = sortArray[i]._selected;
+			}
+		}
+
+	}
+	function optionObject() {
+		var _id;
+		var _value;
+		var _text;
+		var _selected;
+	}
+	function sortArrayByOptionId(obj) {
+		for (var i = 0; i < obj.length; i++) {
+			var element = obj[i];
+			var k = i;
+			for (var j = i + 1; j < obj.length; j++) {
+				//alert("element._id="+element._id+",obj[j]._id="+obj[j]._id);
+				if (element._id > obj[j]._id) {
+					element = obj[j];
+					k = j;
+				}
+			}
+			if (k != i) {
+				obj[k] = obj[i];
+				obj[i] = element;
+			}
+		}
+		return obj;
+	}
+
+	function sortArrayByOptionId(obj, sortMethod) {
+		//字符串转换成大写
+		if (sortMethod.toLocaleUpperCase() == "ASC") {
+			for (var i = 0; i < obj.length; i++) {
+				var element = obj[i];
+				var k = i;
+				for (var j = i + 1; j < obj.length; j++) {
+					//alert("element._id="+element._id+",obj[j]._id="+obj[j]._id);
+					if (element._id > obj[j]._id) {
+						element = obj[j];
+						k = j;
+					}
+				}
+				if (k != i) {
+					obj[k] = obj[i];
+					obj[i] = element;
+				}
+			}
+		} else if (sortMethod.toLocaleUpperCase() == "DESC") {
+			for (var i = 0; i < obj.length; i++) {
+				var element = obj[i];
+				var k = i;
+				for (var j = i + 1; j < obj.length; j++) {
+					if (element._id < obj[j]._id) {
+						element = obj[j];
+						k = j;
+					}
+				}
+				if (k != i) {
+					obj[k] = obj[i];
+					obj[i] = element;
+				}
+			}
+		}
+		return obj;
+	}
+</script>
+<style type="text/css">
+input[type='button'] {
+	width: 50px;
+}
+</style>
+</head>
+<body>
+	<p>
+	<table>
+		<tr>
+			<td><select id="left" multiple="true" style="width:100px"
+				size="10">
+					<option id="1" value="optOne">opt1</option>
+					<option id="2" value="optTow">opt2</option>
+					<option id="3" value="optThree">opt3</option>
+					<option id="4" value="optFour">opt4</option>
+					<option id="5" value="optFive">opt5</option>
+					<option id="6" value="optSix">opt6</option>
+					<option id="7" value="optSeven">opt7</option>
+					<option id="8" value="optEight">opt8</option>
+					<option id="9" value="optNine">opt9</option>
+					<option id="10" value="optTen">opt10</option>
+			</select></td>
+			<td><input type="button" value=">" id="toRight1"><br>
+				<input type="button" value=">>" id="toRight2"><br> <input
+				type="button" value=">>>" id="toRight3"><br> <br>
+				<input type="button" value="<" id="toLeft1"><br> <input
+				type="button" value="<<" id="toLeft2"><br> <input
+				type="button" value="<<<" id="toLeft3"><br></td>
+			<td><select id="right" multiple="true" style="width:100px"
+				size="10">
+			</select></td>
+		</tr>
+	</table>
+
+	</p>
+</body>
+</html>

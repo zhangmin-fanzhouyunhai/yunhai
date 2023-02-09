@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>案例2-表间校验.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span {
+	float: left;
+}
+</style>
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript">
+	function checkForm() {
+		var flag = true;
+		//1、获取用户名和密码里面输入的内容
+		var accountNameValue = document.getElementById("accountName").value;
+		var passwordValue = document.getElementById("password").value;
+		var repasswordValue = document.getElementById("repassword").value;
+		var accountname_msgObj = document.getElementById("accountNameMsg");
+
+		//alert(accountnameValue + "---" + passwordValue);
+
+		//2.校验数据
+		if (accountNameValue == null || accountNameValue == "") {
+			//若为空在span中添加错误信息
+			//a.获取span
+			var accountname_msgObj = document.getElementById("accountNameMsg");
+
+			//b.设置错误信息
+			accountname_msgObj.innerHTML = "用户名不能为空";
+
+			//将flag转为false;
+			flag = false;
+
+		} else {
+			//如果账号名不为空，则错误信息清空
+			accountname_msgObj.innerHTML = "";
+		}
+		//3.校验密码
+		//a.获取span
+		var passwordMsgObj = document.getElementById("passwordMsg");
+
+		if (passwordValue == null || passwordValue == "") {
+			//若为空在span中添加错误信息
+			//方案一：设置错误信息，和用户名一样，可以直接输入需要提示的信息，如下所示
+			//passwordMsgObj.innerHTML = "用户密码不能为空";
+			//设置完错误信息后，可以通过对象的style.color来设置字体颜色及其它，如下所示
+			//passwordMsgObj.style.color="red";
+			//passwordMsgObj.style.fontStyle="blob";
+			//方案二：设置错误信息，直接在innerHTML输入值中设置文本的样式。
+			//
+			passwordMsgObj.innerHTML = "<font color='green'>用户密码不能为空!</font>";
+
+			//将flag转为false;
+			flag = false;
+
+		} else {
+			//如果账号名不为空，则错误信息清空
+			passwordMsgObj.innerHTML = "";
+		}
+		//4.校验确认密码
+		//a.获取span
+		var repasswordMsgObj = document.getElementById("repasswordMsg");
+
+		if (repasswordValue == null || repasswordValue == "") {
+			//若为空在span中添加错误信息
+			//b.设置错误信息
+			repasswordMsgObj.innerHTML = "校验密码不能为空";
+
+			//将flag转为false;
+			flag = false;
+
+		} else {
+			//如果账号名不为空，则错误信息清空
+			repasswordMsgObj.innerHTML = "";
+		}
+		return flag;
+
+	}
+
+
+	function passwordCheck() {
+
+		//获取密码与校验密码
+		var passwordValue = document.getElementById("password").value;
+		var repasswordValue = document.getElementById("repassword").value;
+		//获取全局消息对象 accountAndPasswordMsg
+		var accountAndPasswordMsgObj = document.getElementById("accountAndPasswordMsg");
+		accountAndPasswordMsgObj.style.color = "red";
+		var passwordMsgObj = document.getElementById("passwordMsg");
+		passwordMsgObj.style.color = "red";
+		var repasswordMsgObj = document.getElementById("repasswordMsg");
+		repasswordMsgObj.style.color = "red";
+		if (passwordValue == null || passwordValue == "") {
+			if (repasswordValue != null && repasswordValue != "") {
+				accountAndPasswordMsgObj.innerHTML = "用户密码与确认密码不一致！";
+				passwordMsgObj.innerHTML = "";
+				repasswordMsgObj.innerHTML = "";
+			} else {
+				passwordMsgObj.innerHTML = "用户密码不能为空！";
+				repasswordMsgObj.innerHTML = "确认密码不能为空！";
+				accountAndPasswordMsgObj.innerHTML = "";
+
+			}
+
+
+		} else {
+			if (repasswordValue != null && repasswordValue != "") {
+
+				if (repasswordValue != passwordValue) {
+					accountAndPasswordMsgObj.innerHTML = "用户密码与确认密码不一致！";
+					passwordMsgObj.innerHTML = "";
+					repasswordMsgObj.innerHTML = "";
+				} else {
+					accountAndPasswordMsgObj.innerHTML = "";
+					passwordMsgObj.innerHTML = "";
+					repasswordMsgObj.innerHTML = "";
+				}
+			}
+
+		}
+
+	}
+
+
+	function repasswordCheck() {
+		var passwordValue = document.getElementById("password").value;
+		var repasswordValue = document.getElementById("repassword").value;
+		var accountAndPasswordMsgObj = document.getElementById("accountAndPasswordMsg");
+		accountAndPasswordMsgObj.style.color = "red";
+		var passwordMsgObj = document.getElementById("passwordMsg");
+		passwordMsgObj.style.color = "red";
+		var repasswordMsgObj = document.getElementById("repasswordMsg");
+		repasswordMsgObj.style.color = "red";
+		if (passwordValue == null || passwordValue == "") {
+			if (repasswordValue != null && repasswordValue != "") {
+				accountAndPasswordMsgObj.innerHTML = "用户密码与确认密码不一致！";
+				passwordMsgObj.innerHTML = "";
+				repasswordMsgObj.innerHTML = "";
+
+			} else {
+				passwordMsgObj.innerHTML = "用户密码不能为空！";
+				repasswordMsgObj.innerHTML = "确认密码不能为空！";
+				accountAndPasswordMsgObj.innerHTML = "";
+
+			}
+
+
+		} else {
+			/*alert("passwordValue="+passwordValue+"，repasswordValue="+repasswordValue);*/
+			if (repasswordValue != null && repasswordValue != "") {
+
+				if (repasswordValue != passwordValue) {
+
+					accountAndPasswordMsgObj.innerHTML = "用户密码与确认密码不一致！";
+					passwordMsgObj.innerHTML = "";
+					repasswordMsgObj.innerHTML = "";
+				} else {
+					accountAndPasswordMsgObj.innerHTML = "";
+					passwordMsgObj.innerHTML = "";
+					repasswordMsgObj.innerHTML = "";
+				}
+			} else {
+				accountAndPasswordMsgObj.innerHTML = "";
+				passwordMsgObj.innerHTML = "";
+				repasswordMsgObj.innerHTML = "请输入确认密码！";
+
+			}
+
+		}
+
+	}
+
+	//方式一
+	/* function accountNameCheck() {
+		var accountNameValue = document.getElementById("accountName").value;
+		var accountNameMsgObj = document.getElementById("accountNameMsg");
+		accountNameMsgObj.style.color = "red";
+		if (accountNameValue == null || accountNameValue == "") {
+			accountAndPasswordMsgObj.innerHTML = "用户不能为空！";
+
+		} else {
+			accountNameMsgObj.innerHTML = "";
+		} 
+	} */
+
+
+	function accountNameCheck(obj) {
+		//alert(obj.value);
+	    //通过this对象，获取对象 的值。
+		var accountNameValue = obj.value;
+	    //alert(accountNameValue);
+		var accountNameMsgObj = document.getElementById("accountNameMsg");
+		accountNameMsgObj.style.color = "red";
+		if (accountNameValue == null || accountNameValue == "") {
+			accountNameMsgObj.innerHTML = "用户不能为空！";
+
+		} else {
+			accountNameMsgObj.innerHTML = "";
+		}
+		 
+	}
+</script>
+</head>
+
+<body>
+	<form action="#" method="get" onsubmit="return checkForm()">
+		<table width="30%" height="60%" align="center" bgcolor="#ffffff">
+			<tr>
+				<td colspan="2" align="center">会员注册USER REGISTER</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><span id="accountAndPasswordMsg"></span></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td width="20%">用户名:</td>
+				<td width="40%" align="center"><input type="text"
+					name="accountName" id="accountName" value="" onblur="accountNameCheck(this)"></td>
+				<td width="40%" align="left"><span id="accountNameMsg"></span></td>
+			</tr>
+			<tr>
+				<td width="20%">密码:</td>
+				<td width="40%" align="center"><input type="password"
+					name="password" id="password" value="" onblur="passwordCheck()"></td>
+				<td width="40%" align="left"><span id="passwordMsg"></span></td>
+			<tr>
+				<td width="20%">确认密码:</td>
+				<td width="40%" align="center"><input type="password"
+					name="repassword" id="repassword" onblur="repasswordCheck()"></td>
+				<td width="40%" align="left"><span id="repasswordMsg"></span></td>
+			</tr>
+			<tr>
+				<td width="20%">Email:</td>
+				<td width="40%" align="center"><input type="text" name="email"
+					id="email"></td>
+				<td width="40%" align="left"><span id="emailMsg"></span></td>
+			</tr>
+			<tr>
+				<td width="20%">姓名:</td>
+				<td width="40%" align="center"><input type="text"
+					name="username" id="username"></td>
+				<td width="40%" align="left"><span id="usernameMsg"></span></td>
+			</tr>
+			<tr>
+				<td width="20%">性别:</td>
+				<td width="40%" align="center"><input type="radio"
+					name="gender" id="gender" value="man" checked="checked">男</input> 
+					&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+					<input
+					type="radio" name="gender" id="gender" value="woman">女</input></td>
+				<td width="40%" align="left"><span id="genderMsg"></span></td>
+			</tr>
+			<tr>
+				<td width="20%">出生日期:</td>
+				<td width="40%" align="center"><input type="text"
+					name="birthday" id="birthday"></td>
+				<td width="40%" align="left"><span id="birthdayMsg"></span></td>
+			</tr>
+			<tr>
+				<td width="20%">验证码:</td>
+				<td width="40%" align="center"><input type="text"
+					name="confirmCode" id="confirmCode"></td>
+				<td width="40%" align="left"><span id="confirmCodeMsg"></span></td>
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="注册">
+					&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重置"></td>
+				<td></td>
+			</tr>
+		</table>
+
+	</form>
+
+</body>
+</html>

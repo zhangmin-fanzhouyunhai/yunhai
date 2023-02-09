@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>02-DOM和jQuery对象的转换.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+
+  </head>
+  
+  <body>
+	<input type="text" id="username" value="jack" />
+
+</body>
+<script type="text/javascript">
+	//dom>>>>jquery  $(dom对象)
+	//1.获取dom对象
+	//var obj=document.getElementById("username");
+	//2.转换
+	//var $user=$(obj);
+	//alert($user.val());
+    //alert($user.value);//错误的
+    
+    //jquery >>>>> dom
+    //1.获取jquery独享
+    //
+    var $u=$("#username");
+    //2.转换
+    //2.1方式1
+    //var obj=$u.get(0);
+    
+    //2.2方式2
+    var obj=$u[0];
+    alert(obj.value);
+    
+    
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>案例5-省市联动.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript">
+ //   ../jQuery/case5-leftSelectToRightSelect/下也有一个“案例5-省市联动.html”,好好对比学习学习
+	//定义二维数组
+	var arr = new Array(4);
+	arr[0] = new Array("哈尔滨", "齐齐哈尔", "大庆", "佳木斯");
+	arr[1] = new Array("长春市", "吉林市", "四平市", "通化市");
+	arr[2] = new Array("沈阳市", "锦州市", "大连市", "铁岭市");
+	arr[3] = new Array("郑州市", "洛阳市", "安阳市", "南阳市");
+</script>
+</head>
+
+<body>
+	<form action="#" method="get">
+		<input type="hidden" name="id" value="007"> 姓名：<input
+			name="username" value="xuduoduo"><br> 密码:<input
+			name="password" type="password" value="123" disabled="disabled"><br>
+		性别：<input type="radio" name="sex" value="1" checked="checked">
+		男 &nbsp;&nbsp;<input type="radio" name="sex" value="0">女<br>
+		爱好：<input type="checkbox" name="hobby" value="eat">吃 <input
+			type="checkbox" name="hobby" value="drink">喝 <input
+			type="checkbox" name="hobby" value="sleep">睡 <br> 头像：<input
+			type="file" name="photo"><br> 籍贯：<select name="pro"
+			onchange="selectCity(this.value)">
+			<option>-请选择-</option>
+			<option value="0">黑龙江</option>
+			<option value="1">吉林</option>
+			<option value="2">辽宁</option>
+			<option value="3">河南</option>
+		</select> <select name="city">
+			<option>-请选择-</option>
+		</select> <br> 自我介绍：
+		<textarea rows="4" cols="40" name="introduce">good!</textarea>
+		<br> <input type="submit" value="保存"><input type="reset"
+			value="重置"> <input type="button" value="普通按钮">
+	</form>
+</body>
+<script type="text/javascript">
+
+	function selectCity(index) {
+		//alert(index);
+		//alert(arr[index]);
+		var cities = arr[index];
+		//alert(cities);
+		//获取市的下拉选
+		var cityOptionObj = document.getElementsByName("city")[0]; 
+		
+		//先初始化
+		cityOptionObj.innerHTML="<option>-请选择-</option>";
+		
+		//遍历数组组装option,追加到select
+		for (var i = 0; i < cities.length; i++) { 
+		cityOptionObj.innerHTML +=("<option>"+cities[i]+"</option>"); 
+		}
+
+	}
+</script>
+</html>

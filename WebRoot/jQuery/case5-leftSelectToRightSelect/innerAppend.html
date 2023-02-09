@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>innerAppend.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--   引入jQuery --> 
+ <script src="../../js/jquery-1.11.0.min.js"></script>
+ <script src="../../js/assist.js"></script>
+ <!--<link rel="stylesheet" type="text/css" href="../../css/Style.css" /> -->
+ 
+ <script type="text/javascript">
+ //文档操作
+ //   内部插入
+ //      a.append(c):将c插入到a的内部（标签体）后面
+ //      a.prepend(c):将c插入到a的内部的前面
+ //
+ //      appendTo
+ //      prependTo
+ //
+ //   外部插入
+ //      a.after(c):将c放到a的后面
+ //      a.before(c):将c放到a的前面
+ //      
+ //      a.innerAfter(c)
+ //      a.insertBefor(c)
+ //    
+ //   删除
+ //      empty():清空元素
+ //      remove():删除元素
+ //
+ //
+ //
+ 	$(document).ready(function(){ 
+ 	//0.获取两个元素
+ 	var $city=$("#city");
+ 	var $fk=$("#fk");
+ 	
+ 	//1.在city的后面内部追加反恐
+ 	//$city.append($fk);
+ 	
+ 	//2.在city的前面内部插入反恐
+ 	   $city.prepend($fk);
+ 	})
+ </script>
+ 
+ <style type="text/css">
+ .odd{
+ 	background-color: #BCD68D;
+ }
+ .even{
+ 	background-color: #FFFFCC;
+ }
+ </style>
+</head>
+
+<body>
+<A href="../00-jQueryMenu.html" target=main>返回</A>
+	<ul id="city">
+		<li id="bj" name="beijing">北京</li>
+		<li id="tj" name="tianjin">天津</li>
+		<li id="cq" name="chongqing">重庆</li> 
+	</ul>
+	
+	<ul id="love">
+		<li id="fk" name="fankong">反恐</li>
+		<li id="xj" name="xingji">星际</li> 
+	</ul>
+	<div id="fool">Hello1</div>
+</body>
+
+</html>

@@ -1,0 +1,350 @@
+回顧：
+http:
+	超文本傳輸協議
+	請求和響應
+servlet:
+	運行在服務器端的一個java小程序，本質就是一個類
+	接受請求，處理邏輯，生成動態內容
+	編寫步驟：
+		1.編寫一個類
+			繼承HttpServlet
+			重寫doGet或者doPost方法
+		2.編寫路徑
+			<servlet>
+				<servlet-name>
+				<servlet-class>
+				
+			<servlet-mapping>
+				<servlet-name>
+				<url-pattern>
+		3.測試
+			http://主機：端口號/項目名/路徑
+	servlet的體系結構：
+		servlet-->GenericServlet-->HttpServlet
+	HttpServlet:
+		實現了Service方法，強轉了兩個參數，調用了重載的service方法
+		重載的service方法中，獲取請求的方式，根據請求方式的不同調用相應的doXxx方法
+		掌握doGet()：處理get請求的邏輯
+		doPost():處理post請求的邏輯（只有表單提交的時候把method設置成post的時候，其它均為get）
+	servlet的生命週期：
+		init(ServiceConfig config):
+		service(ServletRequest request,ServletResponse response);
+		destroy();
+/////////////////////////////////////
+	url-pattern的配置
+		完全匹配	/a/b
+		目錄匹配	/a/b/*
+		後綴名匹配	*.jsp
+		優先級：完全匹配>目錄匹配>後綴名匹配
+	一個路徑對應一個servlet
+	一個servlet可以對應多個路徑
+///////////////////////////////////////////////////////////
+	load-on-startup:修改servlet的初始化時機
+///////////////////////////////////////////////////
+	當我們的項目處理不了請求的時候，服務器裡面defaultServlet來處理。
+/////////////////////////////////////////////////
+	路徑的寫法：
+		相對路徑
+		絕對路徑：（常用）
+			帶主機和協議的路徑（訪問站外資源）
+			不帶主機和協議的路徑（最常用的）
+				/項目名/資源路徑
+//////////////////////////////////////////////////////
+servletConfig:(了解）
+	servlet的配置對象
+	作用：
+		獲取servlet的名稱
+		獲取servlet初始化參數
+		（一個星）獲取全局管理者
+		
+servletContext:
+	上下文（全局管理者）
+	作用：
+		1.獲取全局的初始化參數
+		2.共享資源
+		3.獲取資源
+		4.獲取文件的mime類型
+	獲取：
+		在servlet中直接調用 getServletContext()
+	常用方法：
+		String getInitParameter(String key):根據key獲取指定的初始化參數
+			<context-param>
+				<param-name>
+				<param-value>
+		String getRealPath(String 文件路徑):獲取的指定文件在tomcat上的絕對路徑
+			文件路徑從項目的根目錄往后寫
+		InputStream getResourceAsStream(String 文件路徑）：以流的形式返回一個文件 
+		
+		String getMimeType(文件名):格式 大類型/小類型
+
+//////////////////////////////
+域對象：
+	創建：在服務器啟動的時候，服務器會為每一個項目創建一個全局管理者，servletcontext就是當前項目的引用
+	銷燬：在項目被移除或者服務器關閉的時候銷燬。
+	常用的方法：
+		xxxAttribute()
+			setAttribute(String key,Object value)
+			Object getAttribute(String key)
+			removeAttribute(String key)
+////////////////////////////////////////////////
+通過類加載器獲取文件的路徑（處於classes目錄下的文件）
+	類.class.getClassLoader().getReource("文件路徑").getPath();
+	類.class.getClassLoader().getReourceAsStream("文件路徑").getPath();
+////////////////////////////////////////////////////////////////////
+要求：會使用request和response
+案例1-文件下載的案例
+技術分析：
+	response
+	文件下載
+	
+///////////////////////////////////////////////////
+response:響應
+	作用：
+		往瀏覽器寫東西
+	response由幾部份組成
+	組成部份：
+		響應行 響應頭 響應體
+	操作响应行
+		格式：
+			协议/版本	状态码	状态码说明
+		状态码（5类）：
+			1xx:已发送请求
+			2xx:已完成响应
+				200：正常响应
+			3xx:还需浏览器进下一步操作
+				302：重定向	配全响应头：location
+				304：读缓存
+			4xx:用户操作错误
+				404:用户操作错误。
+				405:访问的方法不存在
+			5xx:服务器错误
+				500：内部异常
+		常用方法：
+			setStatus(int 状态码）：针对于 1 2 3
+			了解：
+				sendError(int 状态码）：针对于 4xx和5xx
+	操作响应头
+		格式：key/value(value可以是多个值）
+		常用的方法：
+			setHeader(String key,String value):设置字符串形式的响应头
+			了解：setIntHeader(String key,int value):设置整形的响应头
+			了解：setDateHeader(String key,long value):设置时间的响应头
+			
+			addHeader(String key,String value):
+			添加设置字符串形式的响应头	之前设置过则追加，若没有设置过则设置
+			了解：addIntHeader(String key,int value):添加设置整形的响应头
+			了解：addDateHeader(String key,long value):添加设置时间的响应头
+		常用的响应头：
+			location:重定向
+			refresh:定时刷新
+			content-type:设置文件的mime类型，设置响应流的编码及告诉浏览器用什么编码打开 
+			content-disposition:文件下载
+			
+			重定向：
+				方式1：
+					（一颗星）response.sendRedict("/Day29/loc2Servlet");
+				方式2：
+					response.setStatus(302);
+					response.setHeader("location","/Day29/loc2Servlet");
+			定时刷新：
+				方案1：设置 refresh 昨天做过
+				方案2：http的meta标签
+				    <!-- 
+    					http-equiv:响应头
+    					content:响应头的内容
+     				-->
+    				<meta http-equiv="refresh" content="3;url=refresh2.html">
+					
+			
+	操作响应体
+		页面上要展示的内容
+		常用方法：
+			Writer getWriter():字符流
+			ServletOutputStream getOutPutStream():字节流
+			
+		自己写的东西用字符流，其他一概用字节流。
+		
+	处理响应中文乱码
+		方式1：（一颗星）
+		response.setContentType("text/html;charset=utf-8");
+		方式2：理解
+		response.setHeader("content-type", "text/html;charset=utf-8");
+		
+	注意：
+		getWriter()与getOutputStream()两个流互斥
+		当响应完成之后，服务器会判断一下流是否已经关闭，若没有关闭，
+		服务器会帮我们关闭。（底层使用的缓冲流）
+//////////////////////////////////////////////////////
+文件下载：
+	下载方式：
+		1.超链接下载
+			<a href="/day10/download/day10.txt">下载 day01.txt</a>
+			若浏览器能解析该资源的mime类型，则打开；若不能解析则下载。
+		2.编码下载
+			<a href="/day10/download?name=day10.txt">下载 day01.txt</a>
+			a.设置文件的mimetype类型
+				String mimeType=response.setContentType(类型)
+				context.getMimeType(mimeType);
+			b.设置下载头信息 content-disposition
+				response.setHeader("content-disposition","attachment;filename="+文件名称);
+			c.提供流
+				response.getOutputStream();
+				
+		扩展：使用commons-io工具类
+			对拷流：
+				IOUtils.copy(is,os);
+
+扩展：
+		String s="黑马";
+		String s8=URLEncoder.encode(s,"utf-8");//指定编码
+		System.out.println("s8:"+s8);
+		String so=URLDecoder.decode(s8,"iso-8859-1");//指定解码
+文件下载扩展：
+	中文名称的文件名下载的时候名称会出现问题
+	常见的浏览器需要提供文件名称的utf-8编码
+	对于火狐来说需要提供文件名称的base64编码
+		方案1：使用工具类
+		方案2：网上的方式(八九成可成功）
+			new String(filename.getByte("gbk"),"iso-8859-1");
+			
+		
+				
+/////////////////////////////////////////////////
+扩展：
+	通过responese生成验证码
+	验证码：
+		作用：防止暴力攻击
+///////////////////////////////////////////////////
+案例2-完成用户注册操作
+需求：
+	在一个表单页面上填写用户数据，点击提交，将所有的数据提交到服务器上，
+	通过java代码最终保存到数据库中。
+技术分析：
+	表单
+	request
+///////////////////////////////////////////////////////////////
+request:请求
+	作用：获取浏览器发送过来的数据。
+	组成部分：
+		请求行	请求头	请求体
+		
+	操作请求行
+		格式：
+			请求方式	请求资源	协议/版本
+		常用方法：HttpServletRequest（接口类）
+			掌握：
+				String getMethod():获取请求方式
+				String getRemoteAddr():获取请求者的IP地址；
+				String getContextPath():在java中获取项目名称 （/day10)
+				 
+			了解：
+				getRequetURI():获取的是 从项目名到参数之前的内容  /day10/regist
+			 	getRequestURL():获取的是带协议的完整路径 http://localhost/day10/regist
+			 	String getQueryString():get请求的所有参数	username=tom&password=123
+			 	String getProtocol():获取协议和版本
+			 	
+	
+	操作请求头
+		格式：key/value(value可以是多个值）
+		常用方法：
+			（一颗心）String value=getHeader(String key):通过key获取指定的value(一个）
+			
+			了解：
+				Enumeration getHeaders(String name):通过key获取指定的value(多个）
+				Enumeration getHeaderNames():获取所有请求头的名称
+				int getIntHeader(String key):获取整形的请求头
+				long getDateHeader(String key):获取时间的请求头
+			重要的请求头
+				user-agent:浏览器内核 msie firefox chrome 
+				referer:页面从哪里来 防盗链
+				
+				
+			
+	操作请求体（操作请求参数）（一颗星）
+		username=tom&password=123&hobby=drink&hobby=sleep
+		常用方法：
+			String getParameter(String key):获取一个
+			String[] getParameterValues(String key):通过一个key获取多个值。
+			Map<String,String[]> getParameterMap():获取所有的参数名称和值
+			
+		请求的中文乱码：
+			对于get请求：参数追加到地址栏，会使用utf-i编码 ，
+			服务器（tomcat7）接受到请求之后，使用iso-8859-1
+			解码，所以会出现乱码
+			对于post请求，参数是放在请求体中，服务器获取请求体的时候
+			使用iso-8859-1解码，也会出现乱码。
+			
+			通用的方式：
+				new String(参数.getBytes("iso-8859-1"),"utf-8");
+			针对于post请求来说：只需要将请求流的编码设置成utf-8即可
+				request.setCharacterEncoding("utf-8");
+//////////////////////////////////////////////////////////
+域对象：
+	request:
+		创建：一次请求来的时候
+		销毁：响应生成的时候
+		作用：
+			一次请求里面的数据
+		请求转发（请求链，请求串）
+			request.getRequestDispatcher("内部路径").
+			forward(request,response);
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+案例2-步骤分析：
+	1.数据库和表（day09)
+	2.页面（表单）
+		给每个字段添加name属性
+		还需修改表单提交的路径（method=post)
+	3.表单提交到一个servlet（RegisterServlet)
+	4.RegisterServlet:
+		操作：
+			接收数据，封闭成一个user
+			调用UserService完成保存操作	int regist(User user)
+			判断结果是否符合我们的预期
+				若int==1;插入成功
+				若int!=1;插入失败
+			相应的提示信息在当前的servlet中不做处理，
+			将信息转发给另一个Servlet进行处理（展示）（MsgServlet)。
+	5.UserService
+		调用Dao
+	6.userDao  通过dbutils在数据库中插入一条记录。
+////////////////////////////////////////////////
+封装对象：
+	apache提供的一个工具类
+		BeanUtils
+			封装数据
+			使用步骤
+				1.导入jar包
+				2.调用  BeanUtils.populate(Object bean,Map<>参数);
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+请求转发和重定向区别
+	重定向发送两次请求，请求转发一次请求
+	
+	重定向地址栏发生该表，请求转发不变
+	
+	重定向是从浏览器发送，请求转发是服务器内部
+	
+	重定向不存在request域对象，请求转发可以使用request域对象
+	
+	重定向是response的方法，请求转发是request的方法。
+	
+	重定向可以请求站外资源，请求转发不可以
+			
+
+
+		
+			
+		
+
+
+
+
+	
+		
+		
+		
+		
+		
+	
+	

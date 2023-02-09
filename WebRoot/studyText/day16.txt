@@ -1,0 +1,99 @@
+回顾：
+ajax:
+	异步请求
+原生的ajax(了解)
+	1.创建一个核心对象	XMLHttpRequest
+	2.编写回调函数
+		xmlhttp.onreadystatechange=function(){
+			if(xmlhttp.readyState==4 && xmlhttp.status==200){
+				alert(xmlhttp.responseText);
+			}
+		}
+	3.open操作
+		xmlhttp.open("请求方式","请求路径");
+	4.send操作
+		xmlhttp.send([参数]);
+			post请求的参数放在send里面
+			注意：若请求方式为post且有参数，必须设置一个头
+jquery中ajax
+	掌握：
+		$.get(url,params,function(data){},type);
+			type:以后常用的是json
+		$.post(url,params,function(data){},type);
+	了解：
+		jquery对象.load(...)
+	理解：
+		$.ajax(选项)
+			选项：
+				url
+				type
+				data
+				success:fn
+				error:fn
+				dataType:"json"
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+listener(了解）	监听器
+filter(核心)	过滤器
+/////////////////////////////////////////////////////////////////////
+04.listern-域对象的创建和销毁_.flv
+
+listener:
+	监听器
+	作用：
+		监听web中的域对象	servletContext	servletRequest	HttpSession
+	监听内容：
+		监听三个对象的创建和销毁
+		监听三个对象属性的变化
+		监听session中javabean的状态
+		
+	注意：listener全部是接口
+			
+	
+监听三个对象的创建和销毁
+	ServletContextListener
+		创建：服务器启动的时候，会为每一个项目都创建一个servletContext
+		销毁：服务器关闭的时候，或者项目被移除的时候
+		以后用来加载配置文件
+	ServletRequestListener
+		创建：请求来的时候创建
+		销毁：响应生成的时候
+	HttpSessionListener
+		创建：
+			java中第一次调用request.getSession的时候
+		销毁：
+			三种情况：
+				session超时	（1）默认超时
+				手动销毁session时
+				服务器非正常关闭
+监听三个对象属性的变化（添加 替换 删除）
+	ServletContextAttributeListener
+	ServletRequestAttributeListener
+	HttpSessionAttributeListener
+
+监听session中javabean的状态	
+	注意：这两个接口需要javabean实现，是让javabean感知到自己的状态
+	
+	HttpSessionBindingListener（绑定和解绑）
+		检测java是否添加到session或者从session中移除
+	HttpSessionActivationListener(纯化和活化）
+		钝化：javabean从session中序列化到磁盘上
+		活化：javabean从磁盘上加载到了session中
+		
+	
+使用步骤：
+	1.编写一个类	实现接口（大部分都是）
+	2.重写方法
+	3.编写配置（大部分都是）
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

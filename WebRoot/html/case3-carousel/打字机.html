@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>打字机.html</title>
+
+<meta charset="UTF-8">
+
+<!-- <link rel="stylesheet" href="../css/2.css" type="text/css"/> -->
+
+<script type="text/javascript">
+	var str = "我们的明天更加美好！";
+	var i = 0;
+	/* var bodyObj; */
+	var divObj;
+	function init() {
+		/* bodyObj = document.getElementById("bo"); */
+		divObj = document.getElementById("divId");
+		/* document.write(str); */
+		setInterval(show, 200);
+	}
+	/*往div中写内容*/
+	function show() {
+		//初始化标签体的内容
+		/* bodyObj.innerHTML = ""; */
+		i++;
+		var s_ = str.substring(0, i);
+		//document.write(s_);
+		//
+		divObj.innerHTML = s_;
+		/*当字符串写完之后重新开始*/
+		if (i == str.length) {
+			i = 0;
+		}
+	//document.write(str);
+	}
+</script>
+</head>
+
+<body onload="init()" id="bo">
+	<div id="divId"></div>
+</body>
+</html>

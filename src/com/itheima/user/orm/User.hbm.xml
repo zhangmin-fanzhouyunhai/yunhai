@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 配置类和表结构的映射 -->
+	<class name="com.itheima.user.orm.User" table="T_USER">
+		<id name="tUserId" column="T_USER_ID">
+			<generator class="native"></generator>
+			<!-- increment:获取主键的最大值，进行+1，作为主键 -->
+			<!-- <generator class="increment"></generator> -->
+			<!-- 只适合mysql -->
+			<!-- <generator class="identity"></generator> -->
+			<!-- Oracle/db2适用 -->
+			<!-- <generator class="sequence"></generator> -->
+		</id>
+		
+		<!-- 乐观锁，就使用version标签 -->
+		<version name="version"></version>
+		
+		<!-- 配置其他的属性 -->
+		<property name="userId" type="java.lang.String">
+			<column name="USER_ID" length="32" not-null="true">
+				<comment>用户身份证编码</comment>
+			</column>
+		</property>
+		<property name="userName" type="java.lang.String">
+			<column name="USER_NAME" length="32">
+				<comment>用户名称</comment>
+			</column>
+		</property>
+		<property name="userBirthday" type="java.util.Date">
+			<column name="USER_BIRTHDAY" length="7">
+				<comment>用户出身日期</comment>
+			</column>
+		</property>
+		<property name="userPhone" type="java.lang.String">
+			<column name="USER_PHONE" length="64">
+				<comment>用户固定电话</comment>
+			</column>
+		</property>
+		<property name="userMobile" type="java.lang.String">
+			<column name="USER_MOBILE" length="16">
+				<comment>用户移动电话</comment>
+			</column>
+		</property>
+		<property name="userInfo" type="java.lang.String">
+			<column name="USER_INFO" length="500">
+				<comment>用户信息</comment>
+			</column>
+		</property>
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>05.选择器的优先级2.html</title>
+
+<meta charset="UTF-8">
+
+<style>
+#divId2 {
+	background-color: #f00;
+	width:50%;
+}
+.divCls1{
+	background-color: #0f0
+}
+span{
+	background-color: #00f
+}
+span[att="val"]{
+	background-color: #0ff
+}
+#spanid{
+	background-color: #f0f
+}
+</style>
+<link rel="stylesheet" href="../css/2.css" type="text/css"/>
+
+</head>
+
+<body>
+	<div>天佑中华</div> 
+	<div style="background-color:#f00;">
+		天佑中华-内联</div>
+	<div id="divId2">天佑中华-id选择器</div>
+	<div class="divCls1">天佑中华-class选择器</div>
+	<span >天佑中华</span>
+	<span att="val">天佑中华</span>
+	<span >天佑中华</span>
+	<span class="divCls1">天佑中华</span>
+	<span att="val" id="spanid">天佑中华</span>
+	
+
+
+</body>
+</html>

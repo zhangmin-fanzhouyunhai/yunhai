@@ -1,0 +1,2 @@
+path->
+.;%JAVA_HOME%\bin;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;C:\Program Files (x86)\UltraEdit-32;E:\Workspace\Workspaces\instantclient\instantclient_19_10;C:\ProgramData\Miniconda3;C:\ProgramData\Miniconda3\Scripts;C:\ProgramData\Miniconda3\Library\bin;C:\Program Files\TortoiseGit\bin

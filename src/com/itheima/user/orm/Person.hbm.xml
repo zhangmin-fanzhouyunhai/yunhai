@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.itheima.user.orm.Person" table="t_person">
+		<id name="tPersonId" column="T_PERSON_ID">
+			<generator class="uuid"/>
+			<!-- 主键是自己维护的，不使用Hibernate框架来维护 -->
+			<!-- <generator class="assigned"/> -->
+		</id>
+		<property name="personId" column="PERSON_ID" length="100"/>
+		<property name="personName" column="PERSON_NAME" length="100"/>
+		<property name="personBirthday" column="PERSON_BIRTHDAY" />
+		<property name="personPhone"  column="PERSON_PHONE" length="64"/>
+		<property name="personMobile" column="PERSON_MOBILE" length="64"/>
+		<property name="personInfo" column="PERSON_INFO" length="500"/> 
+	</class>
+</hibernate-mapping>    

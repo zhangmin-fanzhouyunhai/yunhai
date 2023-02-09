@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>焦点事件.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript">
+	//得到焦点
+	function getFoucs() {
+		//获取焦点
+		var user = document.getElementById("username");
+		//alert(user.value);
+		//给span填写内容文本框的内容
+		var spanidVar = document.getElementById("spanid");
+		spanidVar.innerHTML = user.value;
+	}
+
+	//推动焦点的时候将他的内容弹出来
+	function loseFocus() {
+		//获取焦点
+		var user = document.getElementById("username");
+		alert(user.value);
+	}
+</script>
+</head>
+
+<body>
+	用户名：
+	<input name="username" value="tom" onblur="loseFocus()"
+		onfocus="getFoucs()" id="username" />
+	<br>
+	<span id="spanid"></span>
+</body>
+</html>

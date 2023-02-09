@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 请求参数的编码方式 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<!-- 指定由spring负责action对象的创建 -->
+	<constant name="struts.objectFactory" value="spring" /> 
+	<!-- 每次HTTP请求系统都重新加载资源文件，有助于开发(开发时设置为true,发布到生产环境后设置为false) -->
+	<constant name="struts.i18n.reload" value="true" />
+
+	<!-- 指定被struts2处理的请求后缀类型。多个用逗号隔开 -->
+	<!-- <constant name="struts.action.extension" value="action,do,htm,html"/> -->
+
+	<!-- 当struts.xml改动后，是否重新加载。默认值为false(生产环境下使用),开发阶段最好打开 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+
+	<!-- 是否使用struts的开发模式。开发模式会有更多的调试信息。默认值为false(生产环境下使用),开发阶段最好打开 -->
+	<constant name="struts.devMode" value="false" />
+
+	<!-- 设置浏览器是否缓存静态内容。默认值为true(生产环境下使用),开发阶段最好关闭 -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+
+	<!-- 是否开启动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+
+	<!-- 配置文件上传最大值 -->
+	<constant name="struts.multipart.maxSize" value="5000000000" />
+
+	<constant name="struts.locale" value="zh_CN" />
+
+	<constant name="struts.url.includeParams" value="none" />
+	
+	<!-- 配置不过滤webSocket请求 -->
+	<constant name = "struts.action.excludePattern" value="/middleDateImportSocket,/summaryDateImportSocket,/batchTaskDetailImportSocket,/loadExcelSocket"></constant>
+	
+	
+    <!-- Data_Model模块 STRUTS配置部分 -->
+	<!-- <include file="struts-data-model.xml"></include>
+    	数据展现模块 STRUTS配置部分 (guofong)
+	<include file="struts-data-visual.xml"></include> -->
+	
+	<!-- 权限 -->
+	<!-- <include file="struts-Authority.xml"></include> -->
+	
+	<!-- 基本信息 -->
+	<!-- <include file="struts-basicinfo.xml"></include>
+	<include file="struts-datamanager.xml"></include>
+	<include file="struts-systemmanager.xml"></include>
+	<include file="struts_B4.xml"></include> -->
+
+	<package name="default" namespace="/" extends="json-default">
+		<default-action-ref name="Index" />
+
+		<global-results>
+			<result name="notlogin">/NotLogin.jsp</result>
+			<result name="loging">/WebTemplet/Login/LoginMain.jsp</result>
+			<result name="error">/ErrPage.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="exceptionPage" exception="java.lang.Exception" />
+		</global-exception-mappings>
+
+<!-- 开始配置Action -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~基础页STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+		<!-- 登入 -->
+		<action name="Login">
+			<result>WT/GLOBAL/LoginPage/LoginMain.jsp</result>
+		</action>
+		
+		<!-- 实验室数据平台首页框架 -->
+		<action name="Index" class="layoutAction">
+			<result>WT/DI/IndexPage/indexLayout.jsp</result>
+		</action>
+		
+		<!-- 头部 -->
+		<action name="Header">
+			<result>WT/DI/IndexPage/Header.jsp</result>
+		</action>
+		
+		<!-- 实验室数据平台首页框架 -->
+		<action name="IndexFull" class="layoutAction">
+			<result>WT/DI/IndexPage/indexFull.jsp</result>
+		</action>
+		
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~系统功能子菜单 STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->			
+		<!-- 系统首页默认子菜单 -->
+		<action name="IndexMenu" class="layoutAction">
+			<result>WT/DI/DataShow/DataShowMenus.jsp</result>
+		</action>
+		
+		<!-- 数据展现模块子菜单 -->
+		<action name="DIDataShowMenus" class="layoutAction">
+			<result>WT/DI/DataShow/DataShowMenus.jsp</result>
+		</action>
+		
+		<!-- 基本信息管理模块子菜单 -->
+		<action name="DIBasicDataManagerMenus" class="layoutAction">
+			<result>WT/DI/BasicInfo/BasicDataManagerMenus.jsp</result>
+		</action>
+		
+		<!-- 系统管理模块子菜单 -->
+		<action name="DISystemManagerMenus" class="layoutAction">
+			<result>WT/DI/System/SystemManagerMenus.jsp</result>
+		</action>
+		
+		<!-- 数据管理模块子菜单 -->
+		<action name="DIDataManagerMenus" class="layoutAction">
+			<result>WT/DI/DataManager/DataManagerMenus.jsp</result>
+		</action>
+
+		<!-- 报告生成模块子菜单 111-->
+		<action name="DISubArea" class="layoutAction">
+			<result>WT/DI/Report/SubArea.jsp</result>
+		</action>
+		<!-- 报告生成模块body 111-->
+		<action name="DISubAreaBody" class="layoutAction">
+			<result>WT/DI/Report/SubAreaBody.jsp</result>
+		</action>
+
+		<!-- 数据导出模块子菜单 111-->
+		<action name="DIExportData" class="layoutAction">
+			<result>WT/DI/Report/ExportData.jsp</result>
+		</action>
+		<!-- 数据导出模块body 111-->
+		<action name="DIExportDataBody" class="layoutAction">
+			<result>WT/DI/Report/ExportDataBody.jsp</result>
+		</action>
+		
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~数据展现视图  STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->				
+		<!-- 变压器日负荷特性相关 -->
+		<action name="DataShowForYear" class="layoutAction">
+			<result>WT/DI/DataShow/DataShowForYear.jsp</result>
+		</action>
+		<!-- 通用数据预览 -->
+		<action name="showContentLayout" class="layoutAction">
+			<result>WT/DI/DataShow/showContentLayout.jsp</result>
+		</action>
+		<!-- 大屏展现框架==主网架 -->
+		<action name="IndexWebGisRun2" class="layoutAction">
+			<result>/WebTemplet/fullShow/IndexWebGisRun2.jsp</result>
+		</action>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~基本信息 STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<action name="DIPowerPlantManager">
+			<result>WT/DI/BasicInfo/PowerPlant.jsp</result>
+		</action>		
+		<action name="DILineManager">
+			<result>WT/DI/BasicInfo/Line.jsp</result>
+		</action>
+		<action name="DITransStationManager">
+			<result>WT/DI/BasicInfo/TransformerStation.jsp</result>
+		</action>
+		<action name="DITransManager">
+			<result>WT/DI/BasicInfo/Transformer.jsp</result>
+		</action>
+		<action name="DILargeManager">
+			<result>WT/DI/BasicInfo/LargeConsumer.jsp</result>
+		</action>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<action name="Footer">
+			<result>/WebTemplet/IndexPage/Footer.jsp</result>
+		</action>
+		<!-- 登录页面下的技术支持信息页面配置 -->
+		<action name="copyRight">
+			<result>/Iso.jsp</result>
+		</action>
+		
+		<action name="B4" class="layoutAction">
+			<result>/WebTemplet/IndexPage/B4.jsp</result>
+		</action>
+		
+		
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~系统功能子菜单 STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->		
+		
+		
+		
+		
+		
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~地图数据 STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- 数据展现模块子菜单 -->
+		<action name="MapData">
+			<result>/Bootstrap/MapPage/MapShow.jsp</result>
+		</action>	
+		<!-- 数据展现模块子菜单 -->
+		<action name="MapDataHb">
+			<result>/Bootstrap/MapPage/MapShowHb.jsp</result>
+		</action>
+		<!-- 数据展现模块子菜单 -->
+		<action name="MapDataHbYd">
+			<result>/Bootstrap/MapPage/MapShowHbYd.jsp</result>
+		</action>
+		<!-- 数据展现模块子菜单 -->
+		<action name="RealTimeShow">
+			<result>/Bootstrap/MapPage/RealTimeShow.jsp</result>
+		</action>
+		
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~功能页面配置 STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->		
+		<!-- 变压器组 -->
+		<!-- 负荷288P -->
+		<action name="Fh288PLayout">
+			<result>/WebTemplet/DataShow/Layout/byq/Fh288PLayout.jsp</result>
+		</action>
+		<!-- 变压器负载率 -->
+		<action name="ByqFhLayout">
+			<result>/WebTemplet/DataShow/Layout/byq/ByqFhLayout.jsp</result>
+		</action>
+		<!-- 变压器负荷曲线(日) -->
+		<action name="FhqxLayoutForDay">
+			<result>/WebTemplet/DataShow/Layout/byq/FhqxLayoutForDay.jsp</result>
+		</action>
+		<!-- 变压器典型负荷日负荷曲线(日) -->
+		<action name="FhqxLayoutForDx">
+			<result>/WebTemplet/DataShow/Layout/byq/FhqxLayoutForDx.jsp</result>
+		</action>
+		<!-- 地区用电负荷曲线(最大) -->
+		<action name="FhqxLayoutForMx">
+			<result>/WebTemplet/DataShow/Layout/byq/FhqxLayoutForMax.jsp</result>
+		</action>
+		<!-- 变压器负荷曲线(月) -->
+		<action name="FhqxLayoutForMonth">
+			<result>/WebTemplet/DataShow/Layout/byq/FhqxLayoutForMonth.jsp</result>
+		</action>
+		<!-- 变压器负荷曲线(年) -->
+		<action name="FhqxLayoutForYear">
+			<result>/WebTemplet/DataShow/Layout/byq/FhqxLayoutForYear.jsp</result>
+		</action>
+		<!-- 地区用电负荷曲线(多年比较) -->
+		<action name="FhqxLayoutForYearCompare">
+			<result>/WebTemplet/DataShow/Layout/byq/FhqxLayoutForYearCompare.jsp</result>
+		</action>
+		<!-- 负荷增长率 -->
+		<action name="FhZzlLayout">
+			<result>/WebTemplet/DataShow/Layout/byq/FhZzlLayout.jsp</result>
+		</action>
+		<!-- 负荷288P -->
+		<action name="FhGfLayout">
+			<result>/WebTemplet/DataShow/Layout/byq/FhGfLayout.jsp</result>
+		</action>
+		
+		<!-- 地区用电组 -->
+		<!-- 负荷288P -->
+		<action name="Fh288PLayoutForDQ">
+			<result>/WebTemplet/DataShow/Layout/dqyd/Fh288PLayoutForDQ.jsp</result>
+		</action>
+		<!-- 地区用电负荷曲线(日) -->
+		<action name="DqfhqxLayoutForDay">
+			<result>/WebTemplet/DataShow/Layout/dqyd/FhqxLayoutForDay.jsp</result>
+		</action>
+		<!-- 地区用电负荷曲线(典型) -->
+		<action name="DayDXLayout">
+			<result>/WebTemplet/DataShow/Layout/dqyd/FhqxLayoutForDx.jsp</result>
+		</action>
+		<!-- 地区用电负荷曲线(最大) -->
+		<action name="DayMaxLayout">
+			<result>/WebTemplet/DataShow/Layout/dqyd/FhqxLayoutForMax.jsp</result>
+		</action>
+		<!-- 地区用电负荷曲线(月) -->
+		<action name="DqfhqxLayoutForMonth">
+			<result>/WebTemplet/DataShow/Layout/dqyd/FhqxLayoutForMonth.jsp</result>
+		</action>
+		<!-- 地区用电负荷曲线(年) -->
+		<action name="DqfhqxLayoutForYear">
+			<result>/WebTemplet/DataShow/Layout/dqyd/FhqxLayoutForYear.jsp</result>
+		</action>
+		<!-- 地区用电负荷曲线(多年比较) -->
+		<action name="DqfhqxLayoutForYearCompare">
+			<result>/WebTemplet/DataShow/Layout/dqyd/FhqxLayoutForYearCompare.jsp</result>
+		</action>
+		<!-- 地区用电负荷增长率-->
+		<action name="DqFhZzlLayout">
+			<result>/WebTemplet/DataShow/Layout/dqyd/FhZzlLayout.jsp</result>
+		</action>
+		
+		<!-- 用电组 -->
+		<!-- 用电负荷曲线(日) -->
+		<action name="YdLayoutForDay">
+			<result>/WebTemplet/DataShow/Layout/dyh/YdLayoutForDay.jsp</result>
+		</action>
+		<!-- 用电负荷曲线(月) -->
+		<action name="YdLayoutForMonth">
+			<result>/WebTemplet/DataShow/Layout/dyh/YdLayoutForMonth.jsp</result>
+		</action>
+		<!-- 用电负荷曲线(年) -->
+		<action name="YdLayoutForYear">
+			<result>/WebTemplet/DataShow/Layout/dyh/YdLayoutForYear.jsp</result>
+		</action>
+		<!-- 日均负荷 -->
+		<action name="RjfhLayout">
+			<result>/WebTemplet/DataShow/Layout/dyh/RjfhLayout.jsp</result>
+		</action>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~大屏展现 STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->		
+		<!-- 大屏展现框架==主网架 -->
+		<action name="IndexWebGis" class="layoutAction">
+			<result>/WebTemplet/fullShow/IndexWebGis.jsp</result>
+		</action>
+		<!-- 大屏展现框架==主网架 -->
+		<action name="IndexWebGisRun" class="layoutAction">
+			<result>/WebTemplet/fullShow/IndexWebGisRun.jsp</result>
+		</action>
+		<!-- 大屏展现(头部) -->
+		<action name="WebGisHead" class="layoutAction">
+			<result>/WebTemplet/DataShow/Layout/WebGis/WebGisHead.jsp</result>
+		</action>
+		<!-- 大屏展现(左侧) -->
+		<action name="WebGisLeft" class="layoutAction">
+			<result>/WebTemplet/DataShow/Layout/WebGis/WebGisLeft.jsp</result>
+		</action>
+		<!-- 大屏展现(右侧) -->
+		<action name="WebGisRight" class="layoutAction">
+			<result>/WebTemplet/DataShow/Layout/WebGis/WebGisRight.jsp</result>
+		</action>
+		
+		<!-- 大屏展现(变压器负载率) -->
+		<action name="WebGisFzl" class="layoutAction">
+			<result>/WebTemplet/DataShow/Layout/WebGis/FhZzlLayout.jsp</result>
+		</action>
+		<!-- 大屏展现(详细数据展现弹窗) -->
+		<action name="StationDetailWin" class="transformerAndStationDetailAction" method="readTransformerStationDetailInfo">
+            <result>/WebTemplet/fullShow/DetailInfo.jsp</result>
+        </action>
+		
+		
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~系统配置临时使用 STRUTS配置部分~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->		
+		<!-- WebGis调试 -->
+		<action name="IndexWebGisDemo" class="layoutAction">
+			<result>/WebTemplet/IndexPage/IndexWebGisDemo.jsp</result>
+		</action>
+		<!-- 大屏展现 -->
+		<action name="IndexWebGisLayout">
+			<result>/WebTemplet/DataShow/Layout/WebGis/WebGisLayout.jsp</result>
+		</action>
+		
+		<action name="HbDataMapJson" class="chartRealTimeData" method="testMapData">
+			<result type="json">
+                <param name="includeProperties">chartJson,chartType</param>
+                <param name="contentType">text/html</param>
+            </result>
+		</action>
+		
+		<action name="HbDataMapJsonA" class="chartRealTimeData" method="testMapDataA">
+			<result type="json">
+                <param name="root">chartJson</param>
+                <param name="contentType">text/html</param>
+            </result>
+		</action>
+		
+		<action name="DataSelectBox" class="comboboxData" method="readSelector">
+			<result type="json">
+                <param name="root">selectList</param>
+                <param name="contentType">text/html</param>
+            </result>
+		</action>
+		
+		<action name="ColorListJson" class="chartRealTimeData" method="testColorData">
+			<result type="json">
+                <param name="root">chartJson</param>
+                <param name="contentType">text/html</param>
+            </result>
+		</action>
+
+
+
+<!-- =============================负荷数据展现=============================== -->
+		<!-- 地区用电日负荷特性相关 -->
+		<action name="DqydDayMain" class="layoutAction">
+			<result>/WebTemplet/DataShow/new/dqyd/DqydDay.jsp</result>
+		</action>
+		<!-- 地区用电月负荷特性相关 -->
+		<action name="DqydMonthMain" class="layoutAction">
+			<result>/WebTemplet/DataShow/new/dqyd/DqydMonth.jsp</result>
+		</action>
+		<!-- 地区用电年负荷特性相关 -->
+		<action name="DqydYearMain" class="layoutAction">
+			<result>/WebTemplet/DataShow/new/dqyd/DqydYear.jsp</result>
+		</action>
+		
+		<!-- 变压器日负荷特性相关 -->
+		<action name="ByqMainPage" class="layoutAction">
+			<result>/WebTemplet/DataShow/new/byq/ByqAMain.jsp</result>
+		</action>
+		
+		<!-- 变压器月负荷特性相关 -->
+		<action name="ByqMonthMain" class="layoutAction">
+			<result>/WebTemplet/DataShow/new/byq/ByqMonth.jsp</result>
+		</action>
+		<!-- 变压器年负荷特性相关 -->
+		<action name="ByqYearMain" class="layoutAction">
+			<result>/WebTemplet/DataShow/new/byq/ByqYear.jsp</result>
+		</action>
+		
+		<!-- 大负荷报告相关 -->
+		<action name="DfhMain" class="layoutAction">
+			<result>/WebTemplet/DataShow/new/dfh/DfhMain.jsp</result>
+		</action>
+		
+		
+		<!-- 地区用电日负荷特性相关 -->
+		<action name="DqydDayMainA" class="layoutAction">
+			<result>/WebTemplet/DataShow/new/dqyd/DqydDay2.jsp</result>
+		</action>
+		
+	</package>
+</struts>

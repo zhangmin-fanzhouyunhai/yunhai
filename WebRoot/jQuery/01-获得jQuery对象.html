@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>01-获得jQuery对象.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+
+
+</head>
+
+<body>
+	<input type="text" id="username" value="jack" />
+	<input type="text" id="username2" value="jack3" />
+
+</body>
+<script type="text/javascript">
+	//通过原生js
+	// alert(document.getElementById("username").value);
+
+	var $username2=$("#username2");
+	//var $username2 = $("#username2");
+	alert($username2.val());
+	
+	//通过jquery 获取jquery对象
+	//方法一
+	var $username = $("#username");
+	//方法二
+	//var $username=jQuery("#username");
+	alert($username.val());
+</script>
+</html>

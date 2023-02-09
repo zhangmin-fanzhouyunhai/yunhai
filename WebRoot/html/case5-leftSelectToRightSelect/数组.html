@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>数组.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript">
+	var arr1=new Array();
+	var arr2=new Array(3);
+	var arr3=new Array(2,3,4);
+	alert(arr1.length);
+	alert(arr2.length);
+	alert(arr3.length);
+	
+	var arr4=["aa","bb"];
+	alert(arr4.length);
+	
+	//
+	alert(arr2[1]);//undefined
+	//
+	alert(arr2[3]);//undefined
+	
+	arr3[3]=4;
+	//
+	alert(arr3[3]);
+	arr3[6]="hello";
+	alert(arr3.length);//7
+	
+</script>
+  </head>
+  
+  <body> 
+  </body>
+</html>

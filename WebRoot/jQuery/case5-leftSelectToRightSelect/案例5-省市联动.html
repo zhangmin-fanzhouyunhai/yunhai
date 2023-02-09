@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>案例5-省市联动.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="../../css/Style.css" /> -->
+
+
+<style type="text/css">
+.odd {
+	background-color: #BCD68D;
+}
+
+.even {
+	background-color: #FFFFCC;
+}
+</style>
+<script type="text/javascript">
+//案例4-省市联动
+//需求：
+//    
+//步骤分析：
+//    1.确定事件  省份的下拉选变化的时候  change
+//    2.编写函数
+//        a.获取当前省份的value值
+//        b.通过数组获取该省下的所有市 返回值：数组
+//        c.遍历数组，拼装成option元素，追加到市下拉先即可
+//         
+//注意：
+//    每次改变的时候初始化市的值。
+//技术：
+//    遍历数组
+//        数组.each(function(){});
+//        $.each(遍历数据，function(){});//对全局而言采用的方法，需要进下一步理解一下。
+//   ../html/case5-leftSelectToRightSelect/下也有一个“案例5-省市联动.html”,好好对比学习学习
+//设置或者获取value属性
+//    jquery对象.val():获取
+//    jquery对象.val("......"):设置
+//设置获取标签体的内容
+//    html()
+//    text()
+//    xxxxx():获取标签体的内容
+//    xxxxx(""):设置标签体的内容
+//设置的区别
+//   html:会把字符串解析
+//   text:只做为普通的字符串
+//获取的区别
+//   html:获取的html源码
+//   text:获取的是页面展示的内容
+
+//创建一个元素 $("<标签></标签>")
+
+	//定义二维数组
+	/* var arr = new Array(4);
+	arr[0]= new Array("哈尔滨"，"齐齐哈尔","大庆","佳木斯");
+	arr[1]= new Array("长春市"，"吉林市","四平市","通化市");
+	arr[2]= new Array("沈阳市"，"锦州市","大连市","铁岭市");
+	arr[3]= new Array("郑州市"，"洛阳市","安阳市","南阳市"); */
+			var arr = new Array(4);
+			arr[0] = new Array("哈尔滨","齐齐哈尔","大庆","佳木斯");
+			arr[1] = new Array("长春市","吉林市","四平市","通化市");
+			arr[2] = new Array("沈阳市","锦州市","大连市","铁岭市");
+			arr[3] = new Array("郑州市","洛阳市","安阳市","南阳市");
+			 
+			
+</script>
+</head>
+<!--   引入jQuery -->
+<script src="../../js/jquery-1.11.0.min.js"></script>
+<script src="../../js/assist.js"></script>
+<script>
+    
+	$(function(){
+	    $("[name='pro']").change(function(){
+	    	var pro=$(this).val();
+	    	//alert($(this).val());
+	    	//alert(pro);
+	    	//获取所有的市数组
+	    	var $cities=$(arr[pro]);
+	    	var $city=$("[name='city']");
+	    	//初始化
+	    	$city.html($("<option>").html("-请选择-"));
+	    	//alert($cities);
+	    	//遍历数组，拼装成option，追加到市下拉选中
+	    	 $cities.each(function(index,dom){
+	    	     //alert(this);
+	    	     $city.append($("<option>"+this+"</option>").prop("value",index))
+	    	     //$city.prop("value",index);
+	    	     //$city.prop("name",index);
+	    	     //alert(index);
+	    	}); 
+	    });
+	});
+</script>
+<body>
+	<A href="../00-jQueryMenu.html" target=main>返回</A>
+	<form action="#" method="get">
+		<input type="hidden" name="id" value="007"> 
+		姓名：<input
+			name="username" value="xuduoduo"><br> 
+			密码:<input
+			name="password" type="password" value="123" disabled="disabled">
+			<br>
+		性别：<input type="radio" name="sex" value="1" checked="checked">
+		男 &nbsp;&nbsp;
+		<input type="radio" name="sex" value="0">女<br>
+		爱好：<input type="checkbox" name="hobby" value="eat">吃 
+		<input type="checkbox" name="hobby" value="drink">喝 
+		<input type="checkbox" name="hobby" value="sleep">睡 <br> 
+		头像：<input type="file" name="photo"><br> 
+		籍贯：<select name="pro">
+			<option>-请选择-</option>
+			<option value="0">黑龙江</option>
+			<option value="1">吉林</option>
+			<option value="2">辽宁</option>
+			<option value="3">河南</option>
+		</select> 
+		<select name="city">
+			<option>-请选择-</option>
+		</select> <br> 
+		自我介绍：
+		<textarea rows="4" cols="40" name="introduce">good!</textarea>
+		<br> 
+		<input type="submit" value="保存">
+		<input type="reset" value="重置"> 
+		<input type="button" value="普通按钮">
+	</form>
+</body>
+</html>

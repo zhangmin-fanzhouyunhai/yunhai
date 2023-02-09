@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>outInsert.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--   引入jQuery --> 
+ <script src="../../js/jquery-1.11.0.min.js"></script>
+ <script src="../../js/assist.js"></script>
+ <!--<link rel="stylesheet" type="text/css" href="../../css/Style.css" /> -->
+ 
+ <script type="text/javascript">
+ //文档操作
+ //   内部插入
+ //      a.append(c):将c插入到a的内部（标签体）后面
+ //      a.prepend(c):将c插入到a的内部的前面
+ //
+ //      appendTo
+ //      prependTo
+ //
+ //   外部插入
+ //      a.after(c):将c放到a的后面
+ //      a.before(c):将c放到a的前面
+ //      
+ //      a.innerAfter(c)
+ //      a.insertBefor(c)
+ //    
+ //   删除
+ //      empty():清空元素
+ //      remove():删除元素
+ //
+ //
+ //
+ 	$(document).ready(function(){ 
+ 	//0.获取两个元素
+ 	var $city=$("#city");
+ 	var $love=$("#love");
+ 	var $p2=$("#p2");
+ 	
+ 	//1.在p2的后面插入city
+ 	 $p2.after($city);
+ 	
+ 	//2.在p2的前面插入city
+ 	 //  
+ 	 $p2.befor($love);
+ 	});
+ </script>
+ 
+ <style type="text/css">
+ .odd{
+ 	background-color: #BCD68D;
+ }
+ .even{
+ 	background-color: #FFFFCC;
+ }
+ </style>
+</head>
+
+<body>
+<A href="../00-jQueryMenu.html" target=main>返回</A>
+	<ul id="city">
+		<li id="bj" name="beijing">北京</li>
+		<li id="tj" name="tianjin">天津</li>
+		<li id="cq" name="chongqing">重庆</li> 
+	</ul>
+		<ul id="love">
+		<li id="fk" name="fankong">反恐</li>
+		<li id="xj" name="xingji">星际</li> 
+	</ul>
+	<p id="p3">I would like to say: p3</p>
+	
+	<p id="p2">I would like to say: p2</p>
+	
+	<p id="p1">I would like to say: p1</p>
+</body>
+
+</html>

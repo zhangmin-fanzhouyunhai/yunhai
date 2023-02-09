@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>案例5-左右选中.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="../../css/Style.css" /> -->
+
+
+<style type="text/css">
+.odd {
+	background-color: #BCD68D;
+}
+input[type='button']{
+	width:50px;
+}
+.even {
+	background-color: #FFFFCC;
+}
+</style>
+
+<!--   引入jQuery -->
+<script src="../../js/jquery-1.11.0.min.js"></script>
+<script src="../../js/assist.js"></script>
+<script type="text/javascript">
+//案例5-左右选中.html
+//步骤分析：
+//   1.确定事件  单击事件
+//   2.编写函数：
+//      移动一个：
+//         右边的下拉选追加一个 左边的选中的第一个
+//      移动多个：
+//         左边选中的   追加到右边的下拉选中
+//      移动全部：
+//         将左边的所有option追加到右边的下拉选中
+//
+//技术分析
+//   表单对象属性过滤选择器
+//      :enabled   可用的
+//      :disable   不可用的
+//      :checked   选中的（针对于单选框和复选框的）
+//      :selected  选中的（针对于下拉选）
+//
+//
+	//定义二维数组
+$(function(){
+     //从左向右移动一个
+     $("#toRight1").click(function(){
+     	$("#left option:selected:first").appendTo($("#right"));
+     });
+     //从左向右移动多个
+     $("#toRight2").click(function(){
+        $("#right").append($("#left option:selected"));
+     });
+     
+     //从左向右移动所有
+     $("#toRight3").click(function(){
+        $("#right").append($("#left option"));
+     });
+     
+     //从右向左移动一个
+     $("#toLeft1").click(function(){
+     	$("#right option:selected:first").appendTo($("#left"));
+     });
+     
+     //从右向左移动多个
+     $("#toLeft2").click(function(){
+        $("#left").append($("#right option:selected"));
+     });
+     
+     //从右向左移动所有
+     $("#toLeft3").click(function(){
+        $("#left").append($("#right option"));
+     });
+//上午回顾
+//js类库:
+//   对常见的方法和对象进行了封装，方便开发
+//jquery和html的整合
+//   script标签的src属性导入即可
+//获取jquery对象
+//   $("选择器") jQuery("选择器")
+//dom对象和jquery对象之间的转换
+//   dom>>>jquery
+//       $(dom对象)
+//   jquery>>>dom
+//       方式1：
+//           jquery对象[index]
+//		 方式2：
+//           jquery对象.get(index)
+//jquery中的选择器：
+//    基本选择器*
+//       $("#id值")  $(".class值") $("标签名") $("#one,#two,.mini")
+//    层次选择器*
+//    a b:后代
+//    a>b:孩子
+//    a+b:大弟弟
+//    a~b:弟弟们
+//基本过滤选择器
+//    :first :last
+//    :odd :even
+//    :eq(index) :gt|lt..
+//内容过滤
+//    :has(选择器)
+//可见性过滤
+//    :visible
+//    :hidden   指代是 input type="hidden" 和 display:none
+//表单的过滤
+//    :input
+//属性选择器：
+//    [属性]
+//    [属性=值]
+//    :enabled   可用的
+//    :disabled  不可用的
+//    :selected  选中的（针对于单选框和复选框的）
+//    :checked   选中的（针对于下拉选）
+//////////////////
+//派发事件：
+//      jquery对象.事件(function(){});
+//		例如：
+//          $("#btn1").click(function(){......});
+////////////////////////////////
+//页面加载成功
+//$(function(){
+//......
+//})
+//$(document).ready(function(){
+//  ......
+//})
+////////////////////////
+//属性和css
+//   attr():设置或者获取属性
+//      attr("属性名"):获取
+//      attr("属性名","值")：设置一个
+//      attr({
+//         "属性名"："值",
+//         "属性名"："值"
+//        })
+//    prop():和attr用法 一致(1.6版本之后)
+//
+//    (了解)addClass("存在的样式")
+//
+//    removeAttr()
+//    (了解)removeClass()
+//
+//    css():设置获取获取元素的样式
+//       css("属性")：获取
+//       css("属性","值")：设置
+//       css({
+//          "":"",
+//          "":"",
+//          "":""
+//       })//设置多个
+//
+//width()
+//height()
+//
+/////////////////////////////
+//    文档处理：
+//       内部插入（2组方法  任意掌握一组）
+//       外部插入（2组方法  任意掌握一组）
+//       删除(remove empty)
+//
+//
+////////////////////////
+//  val  html  text
+//    val   ：设置或获取value属性
+//    html  :获取或设置标签体内容
+///////////////////
+//遍历数组
+//   方式1
+//      jquery对象.each(function(){});
+//   方式2
+//      $.each(jquery对象,function(){});
+////////////////////
+//在jquery中合建元素
+// &("<标签名>").prop(属性).html(内容)
+//
+//
+//
+
+});
+</script>
+</head>
+<body>
+	<A href="../00-jQueryMenu.html" target=main>返回</A>
+	<form action="#" method="get">
+		<table>
+		<tr>
+		<td>
+		<select id="left" multiple="true" style="width:100px" size="10">
+			<option>環</option>
+			<option>芈</option>
+			<option>琅</option>
+			<option>琊</option>
+			<option>爨</option>
+			<option>甄</option>
+			<option>槑</option>
+			<option>夔</option>
+			<option>嬲</option>
+		</select>
+		</td>
+		<td>
+			<input type="button" value=">" id="toRight1"><br>
+			<input type="button" value=">>" id="toRight2"><br>
+			<input type="button" value=">>>" id="toRight3"><br><br>
+			<input type="button" value="<" id="toLeft1"><br>
+			<input type="button" value="<<" id="toLeft2"><br>
+			<input type="button" value="<<<" id="toLeft3">
+		</td>
+		<td>
+			<select id="right" multiple="true" style="width:100px" size="10">
+			  
+			</select>
+		</td>
+		</tr>		
+		</table>
+	</form>
+</body>
+</html>

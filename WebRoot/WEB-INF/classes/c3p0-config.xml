@@ -1,0 +1,49 @@
+<c3p0-config>
+	<!-- 默认配置，如果没有指定则使用这个配置  c3p0-config.xml  -->
+	<default-config>
+		<!-- 基本配置 -->
+		<!-- <property name="driverClass">com.mysql.jdbc.Driver</property> -->
+		<property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+		<!-- <property name="jdbcUrl">
+		<![CDATA[jdbc:mysql://localhost:3306/liferecord?useUnicode=true&characterEncoding=UTF-8]]> 
+		</property>
+		<property name="user">LIFERECORD</property>
+		<property name="password">LIFERECORD</property> -->
+		<property name="jdbcUrl">
+		<!-- <![CDATA[jdbc:mysql://localhost:3306/DAY13?useUnicode=true&characterEncoding=UTF-8]]>  -->
+		<!-- <![CDATA[jdbc:mysql://192.168.15.134:3306/DAY13?serverTimezone=GMT&useUnicode=true&characterEncoding=UTF-8]]>  -->
+		<![CDATA[jdbc:mysql://localhost:3306/DAY13?serverTimezone=GMT&useUnicode=true&characterEncoding=UTF-8]]> 
+		</property>
+		<property name="user">DAY13</property>
+		<property name="password">DAY13</property>
+		<!-- 扩展配置 -->
+		<property name="checkoutTimeout">30000</property>
+		<property name="idleConnectionTestPeriod">300</property>
+		<property name="initialPoolSize">100</property>
+		<property name="maxIdleTime">30</property>
+		<property name="maxPoolSize">100</property>
+		<property name="minPoolSize">10</property>
+		<property name="maxStatement">200</property>
+		
+	</default-config>
+	<!-- 命名的配置 -->
+	<name-config name="itcast">
+		<!-- 基本配置 -->
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
+		<property name="jdbcUrl">
+		<!-- <![CDATA[jdbc:mysql://localhost:3306/day06?useUnicode=true&characterEncoding=UTF-8]]>  -->
+		<![CDATA[jdbc:mysql://192.168.15.134:3306/day06?useUnicode=true&characterEncoding=UTF-8]]> 
+		</property>
+		<property name="user">day06</property>
+		<property name="password">day06</property>
+		<!-- 如果池中数据连接不够时一次增长多个 -->
+		<property name="checkoutTimeout">30000</property>
+		<property name="idleConnectionTestPeriod">30</property>
+		<property name="initialPoolSize">10</property>
+		<property name="maxIdleTime">30</property>
+		<property name="maxPoolSize">100</property>
+		<property name="minPoolSize">10</property>
+		<property name="maxStatement">200</property>
+	</name-config>
+	
+</c3p0-config>

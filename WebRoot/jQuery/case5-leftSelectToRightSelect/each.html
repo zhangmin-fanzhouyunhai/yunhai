@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>案例5-省市联动.html-each.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--   引入jQuery --> 
+ <script src="../../js/jquery-1.11.0.min.js"></script>
+ <script src="../../js/assist.js"></script>
+ <link rel="stylesheet" type="text/css" href="../../css/Style.css" /> 
+ 
+ <script type="text/javascript">
+ //案例4-省市联动
+ //需求：
+ //    
+ //步骤分析：
+ //    1.确定事件  省份的下拉选变化的时候  change
+ //    2.编写函数
+ //        a.获取当前省份的value值
+ //        b.通过数组获取该省下的所有市 返回值：数组
+ //        c.遍历数组，拼装成option元素，追加到市下拉先即可
+ //         
+ //注意：
+ //    每次改变的时候初始化市的值。
+ //技术：
+ //    遍历数组
+ //        数组.each(function(){});
+ //        $.each(遍历数据，function(){});//对全局而言采用的方法，需要进下一步理解一下。
+ //   ../html/case5-leftSelectToRightSelect/下也有一个“案例5-省市联动.html”,好好对比学习学习
+ 	$(function(){ 
+ 	$("#b1").click(function(){
+ 		//alert($("input:hidden").size())
+ 		//$.each($("input:hidden"),function(){});
+ 		/*$("input:hidden").each(function(){
+ 		//alert(this.value)
+ 		alert($(this).val());
+ 		})
+ 		*/
+ 		$("input:hidden").each(function(index,domObj){
+ 		//alert(this.value)
+ 		alert(index);//索引
+ 		alert(domObj.value);//对象值
+ 		})
+ 	})
+ 	$("#b2").click(function(){
+ 	$.each($("input:hidden"),function(){
+ 		alert($(this).val());
+ 	})
+ 	
+ 	})
+ 	})
+ </script>
+ 
+ <style type="text/css">
+ .odd{
+ 	background-color: #BCD68D;
+ }
+ .even{
+ 	background-color: #FFFFCC;
+ }
+ </style>
+</head>
+
+<body>
+<A href="../00-jQueryMenu.html" target=main>返回</A>
+	<input type="button" value="选取所有的文本隐藏域，并打印它们的值" id="b1">
+	<input type="button" value="选取所有的文本隐藏域，并打印它们的值" id="b2">
+	<br><br>
+	<!-- 文本隐藏域 -->
+	<input type="hidden" value="hidden_1">
+	<input type="hidden" value="hidden_2">
+	<input type="hidden" value="hidden_3">
+	<input type="hidden" value="hidden_4">
+	
+</body>
+
+</html>

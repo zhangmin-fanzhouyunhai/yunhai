@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<title>logon.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<script type="text/javascript">
+	function checkForm() {
+		//获取用户名及其内容
+		var usernameObj = document.getElementById("username");
+		var username = usernameObj.value;
+		//判断value是否为空，若为空不能提交表间，
+		if (username == null || username == "") {
+			alert("用户不能为空");
+			return false;
+		}
+		//获取密码及其内容
+		//1.获取密码元素
+		var pwdObj = document.getElementById("password");
+		//2.获取密码的值
+		var pwdValue = pwdObj.value;
+		//3.判断
+
+		if (pwdValue == null || pwdValue == "") {
+			alert("用户密码不能为空");
+			return false;
+		}
+		alert("用户密码："+pwdValue);
+		return true;
+
+	}
+</script>
+</head>
+
+<body>
+	<form action="#" method="get" onsubmit="return checkForm()">
+		<input type="hidden" name="id" value="007" /><br> 姓名：<input
+			type="text" name="username" id="username" /><br> 密码：<input
+			type="password" name="password" id="password" /><br> 性别：<input
+			type="radio" name="sex" value="1" checked="checked" /> 男 <input
+			type="radio" name="sex" value="0" /> 女<br> 爱好：<input
+			type="checkbox" name="hobby" value="eat" /> 吃 <input type="checkbox"
+			name="hobby" value="drink" checked="checked" /> 喝 <input
+			type="checkbox" name="hobby" value="sleep" checked="checked" /> 睡 <br>
+		头像：<input type="file" name="photo" /><br> <input type="submit"
+			value="提交按钮" /> <input type="reset" value="重置" /> <input
+			type="button" value="普通按钮" />
+	</form>
+</body>
+</html>
